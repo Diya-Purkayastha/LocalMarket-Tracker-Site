@@ -2,7 +2,8 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from './SocialLogin';
-import useAuth from '../../../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
+
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -21,7 +22,8 @@ const Login = () => {
     }
 
     return (
-        <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+        <div className='container mx-auto '>
+            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
             <div className="card-body">
                 <h1 className="text-5xl font-bold">Please Login</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -58,6 +60,8 @@ const Login = () => {
                 <SocialLogin></SocialLogin>
             </div>
         </div>
+        </div>
+        
     );
 };
 

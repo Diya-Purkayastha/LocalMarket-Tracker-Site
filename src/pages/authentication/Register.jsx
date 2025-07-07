@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import useAuth from '../../../hooks/useAuth';
 import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from './SocialLogin';
 import axios from 'axios';
-import useAxios from '../../../hooks/useAxios';
+import useAxios from '../../hooks/useAxios';
+import useAuth from '../../hooks/useAuth';
+
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();

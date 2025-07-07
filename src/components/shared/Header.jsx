@@ -36,7 +36,7 @@ const Header = () => {
                 Login
               </NavLink>
               <NavLink
-                to="/signup"
+                to="/register"
                 className={({ isActive }) =>
                   isActive ? "text-pink-600 font-semibold" : "hover:text-pink-500"
                 }

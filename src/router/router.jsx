@@ -5,6 +5,9 @@ import mainLayout from "../layout/mainLayout";
 import Home from "../pages/Home";
 import Login from "../pages/authentication/Login";
 import Register from "../pages/authentication/Register";
+import PrivateRoute from "../routes/PrivateRoute";
+import DashboardLayout from "../layout/DashboardLayout";
+import Forbidden from "../pages/Forbidden";
 
 
 export const router = createBrowserRouter([
@@ -23,9 +26,23 @@ export const router = createBrowserRouter([
         {
             path: '/register',
             Component: Register
+        },
+        {
+          path:'/forbidden',
+          Component:Forbidden
         }
     ]
   },
+  {
+    path:'/dashboard',
+    element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+    children: [
+      {
+
+      }
+    ]
+  },
+
 ]);
 
 

@@ -11,7 +11,7 @@ const ProductSection = () => {
 
   useEffect(() => {
     // TODO: Replace this fetch URL with your backend product API
-    fetch("http://localhost:5000/api/products?status=approved&limit=6")
+    fetch("http://localhost:3000/api/products?status=approved&limit=6")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data.products);

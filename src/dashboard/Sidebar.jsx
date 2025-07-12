@@ -4,6 +4,7 @@ import useAuth from '../hooks/useAuth';
 import useUserRole from '../hooks/useUserRole';
 
 
+
 const Sidebar = () => {
   const { user } = useAuth();
   const role = useUserRole(user?.email); // 'admin' | 'vendor' | 'user'

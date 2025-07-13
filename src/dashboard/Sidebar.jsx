@@ -1,13 +1,20 @@
-// dashboard/Sidebar.jsx
-import { Link } from 'react-router';
+import { Link } from 'react-router'; 
 import useAuth from '../hooks/useAuth';
 import useUserRole from '../hooks/useUserRole';
-
+import { useEffect } from 'react';
 
 
 const Sidebar = () => {
-  const { user } = useAuth();
-  const role = useUserRole(user?.email); // 'admin' | 'vendor' | 'user'
+  const { user, loading: authLoading, } = useAuth();
+  const { role, roleLoading, refetch } = useUserRole(); 
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+  if (authLoading || roleLoading) {
+    return <span className="loading loading-spinner loading-lg block mx-auto my-10"></span>;
+  }
+
 
   return (
     <div className="w-64 bg-base-100 shadow-lg p-5">

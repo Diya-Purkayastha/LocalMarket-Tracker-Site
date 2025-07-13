@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { format } from 'date-fns';
 

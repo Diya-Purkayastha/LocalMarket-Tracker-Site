@@ -32,7 +32,7 @@ const Register = () => {
                     last_log_in: new Date().toISOString()
                 }
 
-                const userRes = await axiosInstance.post('/users', userInfo);
+                const userRes = await axiosInstance.post('/api/users', userInfo);
                 console.log(userRes.data);
 
                 // update user profile in firebase

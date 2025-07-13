@@ -3,7 +3,12 @@ import useAuth from "../../hooks/useAuth";
 
 
 const Header = () => {
-  const { user, logout } = useAuth();
+  const { user, logOut } = useAuth();
+  const handleLogOut = () => {
+        logOut()
+            .then(result => { console.log(result) })
+            .catch(error => console.log(error))
+    }
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
@@ -69,7 +74,7 @@ const Header = () => {
                 </div>
               )}
               <button
-                onClick={logout}
+                onClick={handleLogOut}
                 className="btn btn-sm btn-outline btn-error ml-2"
                 aria-label="Logout"
               >

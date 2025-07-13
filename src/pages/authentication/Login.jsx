@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from './SocialLogin';
 import useAuth from '../../hooks/useAuth';
+// import { useQueryClient } from '@tanstack/react-query';
+
 
 
 const Login = () => {
@@ -11,11 +13,14 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from || '/';
+    // const queryClient = useQueryClient();
+
 
     const onSubmit = data => {
         signIn(data.email, data.password)
             .then(result => {
                 console.log(result.user);
+                //  queryClient.removeQueries(['userRole']);
                 navigate(from);
             })
             .catch(error => console.log(error))

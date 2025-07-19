@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,
 import { auth } from '../../firebase/firebase.init';
 import axiosInstance from '../../hooks/useAxios';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 
 const googleProvider = new GoogleAuthProvider();
@@ -43,11 +44,13 @@ const AuthProvider = ({ children }) => {
             console.log('user in the auth state change', currentUser)
             setLoading(false);
             if(currentUser?.email){
+                console.log("inside it")
                 try{
-                    const res = await axiosInstance.post('/jwt', {
+                    const res = await axios.post('http://localhost:5000/jwt', {
                         email: currentUser.email,
                     }) ;
                     localStorage.setItem('access-token', res.data.token)
+                    console.log(res)
                 }
                 catch (err){
                     toast.error(err)

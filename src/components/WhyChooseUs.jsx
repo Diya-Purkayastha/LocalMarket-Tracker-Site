@@ -24,12 +24,12 @@ const reasons = [
 const WhyChooseUs = () => {
   return (
     <section
-      className="py-16 bg-cover bg-center bg-fixed relative mt-16"
+      className="py-16 bg-cover bg-center bg-fixed relative mt-10 md:mt-24"
       style={{
         backgroundImage: `url('https://i.ibb.co/qL4whqS7/why-img.webp')`, // section bg
       }}
     >
-      <div className="container px-4 py-14 md:py-20 mx-auto">
+      <div className="container px-8 py-14 md:py-20 mx-auto">
         {/* Heading */}
         <h2 className="text-3xl font-bold text-center text-my-primary mb-10">
           Why Choose LocalMarket Tracker?

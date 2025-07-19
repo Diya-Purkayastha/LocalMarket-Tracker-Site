@@ -24,15 +24,16 @@ useEffect(() => {
 
 
   return (
-    <section className="container mx-auto px-4 md:px-0 my-12">
+    <section className="container mx-auto px-8 md:mt-16">
       <motion.h2
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-2xl font-bold text-pink-600 mb-6"
+        className="text-4xl font-bold text-my-primary text-center"
       >
         Latest Market Prices
       </motion.h2>
+      <p className=" font-semibold text-my-secondary text-center mb-6"> Track daily fluctuations to make smarter buying decisions</p>
 
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -46,7 +47,7 @@ useEffect(() => {
       ) : products.length === 0 ? (
         <p className="text-center text-gray-500">No approved products available.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products.map((product) => (
             <ProductCard
               key={product._id}

@@ -31,10 +31,11 @@ const AllProductsPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold mb-4">🛍️ All Market Products</h2>
+      <div className='text-center'>
+        <h2 className="text-4xl text-my-primary font-bold mb-4">All Market Products</h2>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-4 mb-6">
+      <div className="flex flex-wrap gap-4 mb-6 justify-center">
         <div>
           <label className="label">Sort by Price:</label>
           <select
@@ -60,6 +61,7 @@ const AllProductsPage = () => {
           />
         </div>
       </div>
+      </div>
 
       {/* Product Cards */}
       {isLoading ? (
@@ -82,7 +84,7 @@ const AllProductsPage = () => {
                 />
                 {/* Date Badge on Image */}
                 <div className="absolute top-2 left-2">
-                  <div className="badge badge-my-secondary text-xs">
+                  <div className="badge bg-my-secondary text-white text-xs">
                     {format(new Date(p.date), "dd MMM yyyy")}
                   </div>
                 </div>
@@ -111,7 +113,7 @@ const AllProductsPage = () => {
                 <div className="card-actions justify-end pt-2">
                   <a
                     href={`/details/${p._id}`}
-                    className="btn btn-sm btn-my-primary hover:btn-accent"
+                    className="btn btn-sm bg-my-primary text-white hover:btn-outline"
                   >
                     View Details
                   </a>
@@ -129,7 +131,7 @@ const AllProductsPage = () => {
           <button
             key={n}
             onClick={() => setPage(n)}
-            className={`btn btn-sm ${n === page ? 'btn-my-primary' : 'btn-outline'}`}
+            className={`btn btn-sm ${n === page ? 'bg-my-primary text-white' : 'btn-outline'}`}
           >
             {n}
           </button>

@@ -67,20 +67,52 @@ const AllProductsPage = () => {
       ) : products.length === 0 ? (
         <p>No products found for the selected filters.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((p) => (
-            <div key={p._id} className="card bg-base-100 shadow">
-              <figure>
-                <img src={p.image} alt={p.items?.[0]?.name || 'Market Product'} className="h-48 w-full object-cover" />
+            <div
+              key={p._id}
+              className="card bg-base-100 shadow-md rounded-xl hover:shadow-lg transition duration-300"
+            >
+              {/* Product Image */}
+              <figure className="relative">
+                <img
+                  src={p.image}
+                  alt={p.items?.[0]?.name || "Market Product"}
+                  className="h-48 w-full object-cover rounded-t-xl"
+                />
+                {/* Date Badge on Image */}
+                <div className="absolute top-2 left-2">
+                  <div className="badge badge-my-secondary text-xs">
+                    {format(new Date(p.date), "dd MMM yyyy")}
+                  </div>
+                </div>
               </figure>
-              <div className="card-body">
-                <h3 className="text-lg font-bold">{p.items?.[0]?.name}</h3>
-                <p>💵 Price: ৳{p.items?.[0]?.pricePerUnit}</p>
-                <p>🏪 Market: {p.marketName}</p>
-                <p>📅 Date: {format(new Date(p.date), 'dd MMM yyyy')}</p>
-                <p>👨‍🌾 Vendor: {p.vendorName}</p>
-                <div className="card-actions justify-end">
-                  <a href={`/details/${p._id}`} className="btn btn-primary btn-sm">
+
+              {/* Card Body */}
+              <div className="card-body p-4 space-y-2">
+                {/* Product Name */}
+                <h3 className="text-lg font-bold text-my-primary line-clamp-1">
+                  {p.itemName}
+                </h3>
+
+                {/* Badges */}
+                <div className="flex flex-wrap gap-2">
+                  <div className="badge badge-outline badge-my-accent text-xs">
+                    🏪 {p.marketName}
+                  </div>
+                  <div className="badge badge-outline badge-my-primary text-xs">
+                    👨‍🌾 {p.vendorName}
+                  </div>
+                </div>
+
+               
+
+                {/* Card Footer Action */}
+                <div className="card-actions justify-end pt-2">
+                  <a
+                    href={`/details/${p._id}`}
+                    className="btn btn-sm btn-my-primary hover:btn-accent"
+                  >
                     View Details
                   </a>
                 </div>
@@ -88,6 +120,7 @@ const AllProductsPage = () => {
             </div>
           ))}
         </div>
+
       )}
 
       {/* Pagination */}
@@ -96,7 +129,7 @@ const AllProductsPage = () => {
           <button
             key={n}
             onClick={() => setPage(n)}
-            className={`btn btn-sm ${n === page ? 'btn-primary' : 'btn-outline'}`}
+            className={`btn btn-sm ${n === page ? 'btn-my-primary' : 'btn-outline'}`}
           >
             {n}
           </button>

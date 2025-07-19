@@ -1,2 +1,15 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+
+@theme {
+
+  --color-my-primary: #2E7D32 ;     /* Deep forest green */
+  --color-my-secondary: #66BB6A;   /* Fresh leafy green */
+  --color-my-accent: #A5D6A7;      /* Soft lime green */
+  --color-my-neutral: #F0F4F1;     /* Light neutral background */
+  --color-my-base-100: #ffffff;    /* Pure white for main areas */
+}
+
+

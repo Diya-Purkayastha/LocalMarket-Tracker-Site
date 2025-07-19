@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../../firebase/firebase.init';
+import axiosInstance from '../../hooks/useAxios';
+import { toast } from 'react-toastify';
 
 
 const googleProvider = new GoogleAuthProvider();
@@ -31,14 +33,29 @@ const AuthProvider = ({ children }) => {
 
     const logOut = () => {
         setLoading(true);
+        localStorage.removeItem('access-token')
         return signOut(auth);
     }
 
     useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, currentUser => {
+        const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setUser(currentUser);
             console.log('user in the auth state change', currentUser)
             setLoading(false);
+            if(currentUser?.email){
+                try{
+                    const res = await axiosInstance.post('/jwt', {
+                        email: currentUser.email,
+                    }) ;
+                    localStorage.setItem('access-token', res.data.token)
+                }
+                catch (err){
+                    toast.error(err)
+                }
+            } 
+            else{
+                localStorage.removeItem('access-token');
+            }
         });
 
         return () => {

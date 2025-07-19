@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const AllAdvertisements = () => {
   const axiosSecure = useAxiosSecure();
@@ -12,14 +13,14 @@ const AllAdvertisements = () => {
   const { data: ads = [], isLoading } = useQuery({
     queryKey: ['admin-ads'],
     queryFn: async () => {
-      const res = await axiosSecure.get('/admin/advertisements');
+      const res = await axiosSecure.get('/api/admin/advertisements');
       return res.data;
     }
   });
 
   const updateStatus = useMutation({
     mutationFn: async ({ id, status }) =>
-      await axiosSecure.patch(`/admin/advertisements/${id}`, { status }),
+      await axiosSecure.patch(`/api/admin/advertisements/${id}`, { status }),
     onSuccess: () => {
       toast.success('Ad status updated');
       queryClient.invalidateQueries(['admin-ads']);
@@ -30,13 +31,29 @@ const AllAdvertisements = () => {
   });
 
   const deleteAd = useMutation({
-    mutationFn: async (id) => await axiosSecure.delete(`/admin/advertisements/${id}`),
+    mutationFn: async (id) => await axiosSecure.delete(`/api/admin/advertisements/${id}`),
     onSuccess: () => {
       toast.success('Ad deleted');
       queryClient.invalidateQueries(['admin-ads']);
     },
     onError: () => toast.error('Failed to delete ad')
   });
+  const handleDelete = (adId) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This advertisement will be permanently deleted!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteAd.mutate(adId);
+        Swal.fire('Deleted!', 'The advertisement has been removed.', 'success');
+      }
+    });
+  };
 
   if (isLoading) return <div className="text-center py-20">Loading advertisements...</div>;
 
@@ -60,7 +77,7 @@ const AllAdvertisements = () => {
             {ads.map((ad) => (
               <tr key={ad._id}>
                 <td>
-                  <img src={ad.imageURL} className="w-16 h-12 object-cover rounded" />
+                  <img src={ad.image} className="w-16 h-12 object-cover rounded" />
                 </td>
                 <td>{ad.title}</td>
                 <td className="text-sm">{ad.description}</td>
@@ -104,7 +121,7 @@ const AllAdvertisements = () => {
                 <td>
                   <button
                     className="btn btn-xs btn-error"
-                    onClick={() => deleteAd.mutate(ad._id)}
+                    onClick={() => handleDelete(ad._id)} 
                   >
                     Delete
                   </button>

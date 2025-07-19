@@ -3,6 +3,7 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 const Watchlist = () => {
   const axiosSecure = useAxiosSecure();
@@ -13,13 +14,13 @@ const Watchlist = () => {
   const { data: watchlist = [], isLoading } = useQuery({
     queryKey: ['user-watchlist'],
     queryFn: async () => {
-      const res = await axiosSecure.get('/user/watchlist');
+      const res = await axiosSecure.get('/api/user/watchlist');
       return res.data;
     }
   });
 
   const mutation = useMutation({
-    mutationFn: async (id) => await axiosSecure.delete(`/user/watchlist/${id}`),
+    mutationFn: async (id) => await axiosSecure.delete(`/api/user/watchlist/${id}`),
     onSuccess: () => {
       toast.success('Removed from watchlist');
       queryClient.invalidateQueries(['user-watchlist']);
@@ -29,8 +30,28 @@ const Watchlist = () => {
   });
 
   const handleRemove = (id) => {
-    setRemovingId(id);
-    mutation.mutate(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This product will be removed from your watchlist!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, remove it",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setRemovingId(id);
+        mutation.mutate(id);
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "The product has been removed from your watchlist.",
+          icon: "success",
+          timer: 1200,
+          showConfirmButton: false,
+        });
+      }
+    });
   };
 
   if (isLoading) return <div className="text-center py-20">Loading watchlist...</div>;

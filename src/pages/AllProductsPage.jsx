@@ -4,8 +4,9 @@ import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import useAxios from '../hooks/useAxios';
 
-const AllProducts = () => {
-  const axiosPublic = useAxios();
+
+const AllProductsPage = () => {
+  const axios = useAxios();
   const [sort, setSort] = useState('desc');
   const [date, setDate] = useState('');
   const [page, setPage] = useState(1);
@@ -21,7 +22,7 @@ const AllProducts = () => {
         limit,
       }).toString();
 
-      const res = await axiosPublic.get(`/products?${params}`);
+      const res = await axios.get(`/api/products?${params}`);
       return res.data;
     },
   });
@@ -74,7 +75,7 @@ const AllProducts = () => {
               </figure>
               <div className="card-body">
                 <h3 className="text-lg font-bold">{p.items?.[0]?.name}</h3>
-                <p>💵 Price: ৳{p.items?.[0]?.price}</p>
+                <p>💵 Price: ৳{p.items?.[0]?.pricePerUnit}</p>
                 <p>🏪 Market: {p.marketName}</p>
                 <p>📅 Date: {format(new Date(p.date), 'dd MMM yyyy')}</p>
                 <p>👨‍🌾 Vendor: {p.vendorName}</p>
@@ -105,4 +106,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default AllProductsPage;

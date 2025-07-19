@@ -16,7 +16,7 @@ const UpdateProduct = () => {
   const { data: product, isLoading } = useQuery({
     queryKey: ['product', id],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/vendor/product/${id}`);
+      const res = await axiosSecure.get(`/api/vendor/product/${id}`);
       setDate(new Date(res.data.date));
       return res.data;
     },
@@ -33,12 +33,12 @@ const UpdateProduct = () => {
 
   const mutation = useMutation({
     mutationFn: async (updatedData) => {
-      const res = await axiosSecure.patch(`/vendor/product/${id}`, updatedData);
+      const res = await axiosSecure.patch(`/api/vendor/product/${id}`, updatedData);
       return res.data;
     },
     onSuccess: () => {
       toast.success('Product updated!');
-      navigate('/dashboard/my-products');
+      // navigate('/dashboard');
     },
     onError: () => toast.error('Failed to update product'),
   });

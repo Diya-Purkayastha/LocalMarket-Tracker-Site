@@ -41,7 +41,7 @@ const AddProducts = () => {
     };
 
     try {
-      const res = await axiosSecure.post('/vendor/products', product);
+      const res = await axiosSecure.post('/api/vendor/products', product);
       if (res.data.insertedId) {
         toast.success('Product added!');
         reset();

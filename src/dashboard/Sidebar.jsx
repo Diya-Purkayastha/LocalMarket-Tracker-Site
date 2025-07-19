@@ -25,7 +25,7 @@ const Sidebar = () => {
             <li><Link to="users">All Users</Link></li>
             <li><Link to="products">All Products</Link></li>
             <li><Link to="ads">All Ads</Link></li>
-            <li><Link to="orders">All Orders</Link></li>
+            <li><Link to="all-orders">All Orders</Link></li>
           </>
         )}
         {role === 'vendor' && (

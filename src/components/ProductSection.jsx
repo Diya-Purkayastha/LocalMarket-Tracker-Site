@@ -8,19 +8,20 @@ const ProductSection = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
+useEffect(() => {
+  fetch("http://localhost:5000/api/products?status=approved&limit=6")
+    .then((res) => res.json())
+    .then((data) => {
+      // If backend returns { products: [...] }
+      setProducts(data.products || []);
 
-  useEffect(() => {
-    // TODO: Replace this fetch URL with your backend product API
-    fetch("http://localhost:3000/api/products?status=approved&limit=6")
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data.products);
-      })
-      .catch(() => {
-        setProducts([]);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+      // If backend returns just an array, uncomment this:
+      // setProducts(Array.isArray(data) ? data : []);
+    })
+    .catch(() => setProducts([]))
+    .finally(() => setLoading(false));
+}, []);
+
 
   return (
     <section className="container mx-auto px-4 md:px-0 my-12">

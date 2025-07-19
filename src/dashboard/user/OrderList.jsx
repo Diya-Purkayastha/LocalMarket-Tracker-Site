@@ -10,7 +10,7 @@ const OrderList = () => {
   const { data: orders = [], isLoading } = useQuery({
     queryKey: ['user-orders'],
     queryFn: async () => {
-      const res = await axiosSecure.get('/user/orders');
+      const res = await axiosSecure.get('/api/user/orders');
       return res.data;
     }
   });
@@ -47,7 +47,7 @@ const OrderList = () => {
                   <td>
                     <button
                       className="btn btn-sm btn-outline"
-                      onClick={() => navigate(`/product/${order.productId}`)}
+                      onClick={() => navigate(`/details/${order.productId}`)}
                     >
                       View Details
                     </button>

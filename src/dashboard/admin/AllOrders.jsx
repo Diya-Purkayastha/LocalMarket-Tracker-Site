@@ -8,11 +8,11 @@ const AllOrders = () => {
   const { data: orders = [], isLoading } = useQuery({
     queryKey: ['admin-orders'],
     queryFn: async () => {
-      const res = await axiosSecure.get('/admin/orders');
+      const res = await axiosSecure.get('/api/admin/orders');
       return res.data;
     }
   });
-
+console.log(orders)
   if (isLoading) return <div className="text-center py-20">Loading orders...</div>;
 
   return (
@@ -27,7 +27,7 @@ const AllOrders = () => {
               <th>Product</th>
               <th>Market</th>
               <th>Price</th>
-              <th>Buyer</th>
+              <th>Status</th>
               <th>Email</th>
               <th>Date</th>
             </tr>
@@ -39,8 +39,8 @@ const AllOrders = () => {
                 <td>{order.productName}</td>
                 <td>{order.marketName}</td>
                 <td>৳{order.price}</td>
-                <td>{order.buyerName}</td>
-                <td>{order.buyerEmail}</td>
+                <td>{order.status}</td>
+                <td>{order.userEmail}</td>
                 <td>{format(new Date(order.date), 'dd MMM yyyy')}</td>
               </tr>
             ))}

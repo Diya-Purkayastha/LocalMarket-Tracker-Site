@@ -14,14 +14,14 @@ const MyProducts = () => {
   const { data: products = [], isLoading } = useQuery({
     queryKey: ['my-products'],
     queryFn: async () => {
-      const res = await axiosSecure.get('/vendor/products');
+      const res = await axiosSecure.get('/api/vendor/products');
       return res.data;
     }
   });
 
   const mutation = useMutation({
     mutationFn: async (id) => {
-      const res = await axiosSecure.delete(`/vendor/products/${id}`);
+      const res = await axiosSecure.delete(`/api/vendor/products/${id}`);
       return res.data;
     },
     onSuccess: () => {

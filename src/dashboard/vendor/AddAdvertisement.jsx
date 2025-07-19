@@ -23,7 +23,7 @@ const AddAdvertisement = () => {
     };
 
     try {
-      const res = await axiosSecure.post('/vendor/ads', ad);
+      const res = await axiosSecure.post('/api/vendor/advertisements', ad);
       if (res.data.insertedId) {
         toast.success('Advertisement submitted!');
         reset();

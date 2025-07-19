@@ -27,12 +27,14 @@ const Register = () => {
                 // update userinfo in the database
                 const userInfo = {
                     email: data.email,
+                    name: data.name,
+                    photoURL: profilePic,
                     role: 'user', // default role
                     created_at: new Date().toISOString(),
                     last_log_in: new Date().toISOString()
                 }
 
-                const userRes = await axiosInstance.post('/api/users', userInfo);
+                const userRes = await axiosInstance.post('/users', userInfo);
                 console.log(userRes.data);
 
                 // update user profile in firebase

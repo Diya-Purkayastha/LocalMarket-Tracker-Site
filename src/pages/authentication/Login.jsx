@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from './SocialLogin';
 import useAuth from '../../hooks/useAuth';
+import { toast } from 'react-toastify';
 // import { useQueryClient } from '@tanstack/react-query';
 
 
@@ -21,9 +22,10 @@ const Login = () => {
             .then(result => {
                 console.log(result.user);
                 //  queryClient.removeQueries(['userRole']);
+                toast.success("successfully logged in")
                 navigate(from);
             })
-            .catch(error => console.log(error))
+            .catch(error => toast.error(error.code))
     }
 
     return (

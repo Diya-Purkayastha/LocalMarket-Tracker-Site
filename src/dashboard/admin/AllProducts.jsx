@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { Link } from 'react-router';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const AllProducts = () => {
   const axiosSecure = useAxiosSecure();
@@ -13,14 +14,14 @@ const AllProducts = () => {
   const { data: products = [], isLoading } = useQuery({
     queryKey: ['admin-products'],
     queryFn: async () => {
-      const res = await axiosSecure.get('/admin/products');
+      const res = await axiosSecure.get('/api/admin/products');
       return res.data;
     }
   });
 
   const approveMutation = useMutation({
     mutationFn: async (id) =>
-      await axiosSecure.patch(`/admin/products/${id}`, { status: 'approved' }),
+      await axiosSecure.patch(`/api/admin/products/${id}`, { status: 'approved' }),
     onSuccess: () => {
       toast.success('Product approved');
       queryClient.invalidateQueries(['admin-products']);
@@ -29,7 +30,7 @@ const AllProducts = () => {
 
   const rejectMutation = useMutation({
     mutationFn: async ({ id, feedback }) =>
-      await axiosSecure.patch(`/admin/products/${id}/rejection`, { feedback }),
+      await axiosSecure.patch(`/api/admin/products/${id}/rejection`, { feedback }),
     onSuccess: () => {
       toast.success('Product rejected with feedback');
       setRejectionModal(null);
@@ -39,12 +40,28 @@ const AllProducts = () => {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: async (id) => await axiosSecure.delete(`/admin/products/${id}`),
+    mutationFn: async (id) => await axiosSecure.delete(`/api/admin/products/${id}`),
     onSuccess: () => {
       toast.success('Product deleted');
       queryClient.invalidateQueries(['admin-products']);
     }
   });
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This product will be permanently deleted!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteMutation.mutate(id);
+        Swal.fire('Deleted!', 'The product has been removed.', 'success');
+      }
+    });
+  };
 
   if (isLoading) return <div className="text-center py-20">Loading products...</div>;
 
@@ -71,7 +88,7 @@ const AllProducts = () => {
               <tr key={p._id}>
                 <td>
                   <div className="flex items-center gap-2">
-                    <img src={p.imageURL} className="w-10 h-10 rounded" />
+                    <img src={p.image} className="w-10 h-10 rounded" />
                     <span>{p.itemName}</span>
                   </div>
                 </td>
@@ -100,10 +117,10 @@ const AllProducts = () => {
                       </button>
                     </>
                   )}
-                  <Link to={`/dashboard/vendor/update-product/${p._id}`} className="btn btn-xs btn-info">
+                  <Link to={`/dashboard/update-product/${p._id}`} className="btn btn-xs btn-info">
                     Update
                   </Link>
-                  <button onClick={() => deleteMutation.mutate(p._id)} className="btn btn-xs btn-error">
+                  <button onClick={() => handleDelete(p._id)} className="btn btn-xs btn-error">
                     Delete
                   </button>
                 </td>

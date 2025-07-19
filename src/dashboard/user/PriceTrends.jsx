@@ -7,30 +7,31 @@ const PriceTrends = () => {
   const axiosSecure = useAxiosSecure();
   const [selectedProductId, setSelectedProductId] = useState(null);
 
-  // Get user’s watchlist to populate dropdown
+  // ✅ Get user’s watchlist to populate dropdown
   const { data: watchlist = [] } = useQuery({
     queryKey: ['user-watchlist'],
     queryFn: async () => {
-      const res = await axiosSecure.get('/user/watchlist');
+      const res = await axiosSecure.get('/api/user/watchlist');
       return res.data;
     }
   });
 
-  // Fetch price trends for selected product
+  // ✅ Fetch price trends only when a product is selected
   const { data: trendData = [], isLoading } = useQuery({
-    queryKey: ['price-trends', selectedProductId],
-    enabled: !!selectedProductId,
+    queryKey: ['compare', selectedProductId],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/user/price-trends/${selectedProductId}`);
-      return res.data;
-    }
+      const res = await axiosSecure.get(`/api/compare?productId=${selectedProductId}`);
+      console.log("Fetched price trends:", res.data);
+      return res.data?.priceHistory || []; // return only priceHistory array
+    },
+    enabled: !!selectedProductId // ✅ Prevents fetching until a product is selected
   });
 
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">📈 Price Trend Comparison</h2>
 
-      {/* Dropdown */}
+      {/* ✅ Dropdown */}
       <div className="mb-6">
         <label className="block mb-1 font-medium">Select Product:</label>
         <select
@@ -47,9 +48,10 @@ const PriceTrends = () => {
         </select>
       </div>
 
-      {/* Chart */}
+      {/* ✅ Loading state */}
       {isLoading && <p>Loading trend data...</p>}
 
+      {/* ✅ Chart when we have data */}
       {!isLoading && trendData.length > 0 && (
         <div className="w-full h-96">
           <ResponsiveContainer width="100%" height="100%">
@@ -64,6 +66,7 @@ const PriceTrends = () => {
         </div>
       )}
 
+      {/* ✅ No data case */}
       {!isLoading && selectedProductId && trendData.length === 0 && (
         <p className="text-gray-500 mt-4">No trend data available for this product.</p>
       )}

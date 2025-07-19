@@ -11,10 +11,21 @@ import Watchlist from '../dashboard/user/Watchlist';
 import OrderList from '../dashboard/user/OrderList';
 import PriceTrends from '../dashboard/user/PriceTrends';
 import AdminRoute from '../routes/AdminRoute'
+import VendorRoute from '../routes/VendorRoute'
 import AllOrders from '../dashboard/admin/AllOrders'
 import AllProducts from '../dashboard/admin/AllProducts'
 import AllUsers from '../dashboard/admin/AllUsers'
 import AllAdvertisements from '../dashboard/admin/AllAdvertisements'
+import AddProducts from '../dashboard/vendor/AddProducts'
+import AddAdvertisement from '../dashboard/vendor/AddAdvertisement'
+import MyProducts from '../dashboard/vendor/MyProducts'
+import UpdateProduct from '../dashboard/vendor/UpdateProduct'
+import MyAdvertisements from '../dashboard/vendor/MyAdvertisements'
+import AllProductsPage from "../pages/AllProductsPage";
+import DetailsPage from "../pages/DetailsPage";
+import PaymentSuccess from "../pages/PaymentSuccess";
+import PaymentCancelled from "../pages/PaymentCancel";
+import PaymentPage from "../pages/PaymentPage";
 
 
 
@@ -38,7 +49,27 @@ export const router = createBrowserRouter([
         {
           path:'/forbidden',
           Component:Forbidden
-        }
+        },
+        {
+          path:'all-products',
+          Component: AllProductsPage
+        },
+      {
+        path: '/details/:id',
+        Component: DetailsPage
+      },
+      {
+        path:"/payment-success",
+        element: <PaymentSuccess />
+      },
+      {
+        path:"/payment-cancelled",
+         element:<PaymentCancelled />
+      },
+      {
+        path: '/payment',
+        Component: PaymentPage
+      }
     ]
   },
   {
@@ -75,9 +106,31 @@ export const router = createBrowserRouter([
         element: <AdminRoute><AllAdvertisements></AllAdvertisements></AdminRoute>
       },
       {
-        path: 'orders',
+        path: 'all-orders',
         element: <AdminRoute><AllOrders></AllOrders></AdminRoute>
-      }
+      },
+
+      //vendor routes
+      {
+        path: 'add-product',
+        element:<VendorRoute><AddProducts></AddProducts></VendorRoute>
+      }, 
+    {
+      path: 'my-products',
+      element:<VendorRoute><MyProducts></MyProducts></VendorRoute>
+    },
+    {
+      path: 'add-ad',
+      element: <VendorRoute><AddAdvertisement></AddAdvertisement></VendorRoute>
+    },
+    {
+      path: 'my-ads',
+      element:<VendorRoute><MyAdvertisements></MyAdvertisements></VendorRoute>
+    },
+    {
+      path: 'update-product/:id',
+      element:<UpdateProduct></UpdateProduct>
+    }
     ]
   },
 

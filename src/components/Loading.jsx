@@ -1,12 +1,12 @@
 // components/Loading.jsx
-import { FaTruckLoading } from "react-icons/fa";
+import { FaCoffee, FaTruckLoading } from "react-icons/fa";
 
 const Loading = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-[80vh] bg-base-100 text-center px-4">
             {/* Animated truck icon */}
             <div className="animate-bounce text-primary text-6xl mb-4">
-                <FaTruckLoading />
+                <FaCoffee />
             </div>
 
             {/* Main message */}
@@ -16,7 +16,7 @@ const Loading = () => {
 
             {/* Sub message */}
             <p className="text-sm text-gray-500 dark:text-gray-400 max-w-md mt-2">
-                Our system is carefully processing your product information.
+                Our system is carefully processing your information.
             </p>
 
             {/* DaisyUI spinner for extra visual feedback */}

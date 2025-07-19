@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
 const MyAdvertisements = () => {
   const { user } = useAuth();
@@ -14,7 +15,7 @@ const MyAdvertisements = () => {
   const { data: ads = [], isLoading } = useQuery({
     queryKey: ['myAds', user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/vendor/advertisements?email=${user?.email}`);
+      const res = await axiosSecure.get(`/api/vendor/advertisements?email=${user?.email}`);
       return res.data;
     },
     enabled: !!user?.email,
@@ -23,7 +24,7 @@ const MyAdvertisements = () => {
   // Delete Mutation
   const deleteAd = useMutation({
     mutationFn: async (id) => {
-      const res = await axiosSecure.delete(`/vendor/advertisements/${id}`);
+      const res = await axiosSecure.delete(`/api/vendor/advertisements/${id}`);
       return res.data;
     },
     onSuccess: () => {
@@ -36,7 +37,7 @@ const MyAdvertisements = () => {
   // Update Mutation
   const updateAd = useMutation({
     mutationFn: async (updatedAd) => {
-      const res = await axiosSecure.patch(`/vendor/advertisements/${editingAd._id}`, updatedAd);
+      const res = await axiosSecure.put(`/api/vendor/advertisements/${editingAd._id}`, updatedAd);
       return res.data;
     },
     onSuccess: () => {
@@ -56,6 +57,22 @@ const MyAdvertisements = () => {
       image: form.image.value,
     };
     updateAd.mutate(updated);
+  };
+  const handleDelete = (adId) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "This advertisement will be permanently deleted!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteAd.mutate(adId);
+        Swal.fire('Deleted!', 'Your advertisement has been removed.', 'success');
+      }
+    });
   };
 
   if (isLoading) return <div>Loading advertisements...</div>;
@@ -89,11 +106,7 @@ const MyAdvertisements = () => {
                   >Edit</button>
                   <button
                     className="btn btn-sm btn-error"
-                    onClick={() => {
-                      if (confirm('Are you sure to delete this ad?')) {
-                        deleteAd.mutate(ad._id);
-                      }
-                    }}
+                    onClick={() => handleDelete(ad._id)}
                   >Delete</button>
                 </td>
               </tr>
@@ -124,7 +137,7 @@ const MyAdvertisements = () => {
                 name="image"
                 className="input input-bordered w-full"
               />
-              <div className="flex justify-between gap-4 mt-3">
+              <div className="mt-3">
                 <button type="submit" className="btn btn-primary w-full">Update</button>
                 <button
                   type="button"

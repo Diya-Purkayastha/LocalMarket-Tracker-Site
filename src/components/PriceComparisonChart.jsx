@@ -1,6 +1,6 @@
 // src/pages/Details/PriceComparisonChart.jsx
 import { useQuery } from '@tanstack/react-query';
-import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 
 const PriceComparisonChart = ({ productId }) => {
@@ -9,7 +9,8 @@ const PriceComparisonChart = ({ productId }) => {
   const { data, isLoading } = useQuery({
     queryKey: ['compare', productId],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/compare?productId=${productId}`);
+      const res = await axiosSecure.get(`/api/compare?productId=${productId}`);
+      console.log("Fetched reviews:", res.data);
       return res.data;
     },
   });

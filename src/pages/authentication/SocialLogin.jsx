@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import useAuth from '../../hooks/useAuth';
 import useAxios from '../../hooks/useAxios';
-import useUserRole from '../../hooks/useUserRole';
+import { toast } from 'react-toastify';
 
 
 const SocialLogin = () => {
@@ -11,7 +11,6 @@ const SocialLogin = () => {
     const navigate = useNavigate();
     const from = location.state?.from || '/';
     const axiosInstance = useAxios();
-      const { refetch } = useUserRole(); 
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
@@ -26,9 +25,9 @@ const SocialLogin = () => {
                     last_log_in: new Date().toISOString()
                 }
 
-                const res = await axiosInstance.post('/api/users', userInfo);
+                const res = await axiosInstance.post('/users', userInfo);
                 console.log('user update info', res.data)
-                await refetch(); 
+                toast.success("Successfully Logged in")
                 navigate(from);
             })
             .catch(error => {

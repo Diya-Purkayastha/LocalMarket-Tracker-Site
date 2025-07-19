@@ -2,12 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router";
 
 const ProductCard = ({ product, isLoggedIn }) => {
-  /* 
-  product should have:
-  _id, productImage, marketName, date, items (array like [{name, price}])
-  */
 
-  // Format date to readable string
   const formattedDate = new Date(product.date).toLocaleDateString();
 
   return (
@@ -17,7 +12,7 @@ const ProductCard = ({ product, isLoggedIn }) => {
       className="card bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden"
     >
       <img
-        src={product.productImage}
+        src={product.image}
         alt={`${product.marketName} product`}
         className="h-48 w-full object-cover"
       />

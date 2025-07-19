@@ -1,14 +1,16 @@
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import useAxiosSecure from '../../hooks/useAxiosSecure';
-import { useAuth } from '../../hooks/useAuth'; // or your auth context
+import useAxiosSecure from '../hooks/useAxiosSecure'; 
 import { toast } from 'react-toastify';
 import { format } from 'date-fns';
+import useAuth from '../hooks/useAuth';
+import useAxios from '../hooks/useAxios';
 
 const ReviewCommentSection = ({ productId }) => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
+  const axios =  useAxios();
 
   const { register, handleSubmit, reset } = useForm();
 
@@ -16,7 +18,8 @@ const ReviewCommentSection = ({ productId }) => {
   const { data: reviews = [] } = useQuery({
     queryKey: ['reviews', productId],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/reviews?productId=${productId}`);
+      const res = await axios.get(`/api/reviews?productId=${productId}`);
+       
       return res.data;
     },
   });
@@ -24,7 +27,7 @@ const ReviewCommentSection = ({ productId }) => {
   // Submit a new review
   const mutation = useMutation({
     mutationFn: async (data) => {
-      return await axiosSecure.post('/user/reviews', { ...data, productId });
+      return await axiosSecure.post('/api/user/reviews', { ...data, productId });
     },
     onSuccess: () => {
       toast.success('Review submitted!');

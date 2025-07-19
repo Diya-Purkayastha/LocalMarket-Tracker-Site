@@ -4,7 +4,7 @@ import useAuth from './useAuth';
 import { useNavigate } from 'react-router';
 
 const axiosSecure = axios.create({
-    baseURL: `http://localhost:3000/`
+    baseURL: `http://localhost:5000`
 });
 
 const useAxiosSecure = () => {
@@ -12,7 +12,10 @@ const useAxiosSecure = () => {
     const navigate = useNavigate();
 
     axiosSecure.interceptors.request.use(config => {
-        config.headers.Authorization = `Bearer ${user.accessToken}`
+        const token = localStorage.getItem('access-token');
+        if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+        }
         return config;
     }, error => {
         return Promise.reject(error);
@@ -21,7 +24,7 @@ const useAxiosSecure = () => {
     axiosSecure.interceptors.response.use(res => {
         return res;
     }, error => {
-        const status = error.status;
+         const status = error.response?.status;
         if (status === 403) {
             navigate('/forbidden');
         }

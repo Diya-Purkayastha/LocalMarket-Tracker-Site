@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
         Component: PrivacyPolicy
       },
       {
-        path: 'forgetpass',
+        path: '/forgetpass',
         Component: ForgetPass
       }
     ]

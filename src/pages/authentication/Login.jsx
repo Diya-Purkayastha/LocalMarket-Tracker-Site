@@ -4,88 +4,102 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import SocialLogin from './SocialLogin';
 import useAuth from '../../hooks/useAuth';
 import { toast } from 'react-toastify';
-// import { useQueryClient } from '@tanstack/react-query';
-
-
 
 const Login = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const { signIn } = useAuth();
-    const location = useLocation();
-    const navigate = useNavigate();
-    const from = location.state?.from || '/';
-    // const queryClient = useQueryClient();
+  const { register, handleSubmit, formState: { errors }, getValues } = useForm();
+  const { signIn } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from || '/';
 
+  const onSubmit = (data) => {
+    signIn(data.email, data.password)
+      .then((result) => {
+        console.log(result.user);
+        toast.success("Successfully logged in");
+        navigate(from);
+      })
+      .catch((error) => toast.error(error.code));
+  };
 
-    const onSubmit = data => {
-        signIn(data.email, data.password)
-            .then(result => {
-                console.log(result.user);
-                //  queryClient.removeQueries(['userRole']);
-                toast.success("successfully logged in")
-                navigate(from);
-            })
-            .catch(error => toast.error(error.code))
+  const handleForgetPass = () => {
+    const email = getValues('email'); // ✅ FIXED
+    if (!email) {
+      toast.warning("Please enter your email.");
+      return;
     }
-    const handleForgetPass = () => {
-        const email = email2.current.value;
-        if (!email) {
-            toast.warning("Please enter your email.");
-            return;
-        }
-        navigate('/forgetpass', { state: email });
+    navigate('/forgetpass', { state: email });
+  };
 
-    }
+  return (
+    <div className="flex justify-center items-center mt-10">
+      <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
+        <div className="card-body">
+          <h1 className="text-3xl font-bold text-center">Please Login</h1>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <fieldset className="fieldset">
+              <label className="label">Email</label>
+              <input
+                type="email"
+                {...register('email')}
+                className="input input-bordered w-full"
+                placeholder="Email"
+              />
 
-    return (
-        <div className='container mx-auto '>
-            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-                <div className="card-body">
-                    <h1 className="text-5xl font-bold">Please Login</h1>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <fieldset className="fieldset">
+              <label className="label">Password</label>
+              <input
+                type="password"
+                {...register('password', {
+                  required: true,
+                  minLength: 6,
+                })}
+                className="input input-bordered w-full"
+                placeholder="Password"
+              />
+              {errors.password?.type === 'required' && (
+                <p className="text-red-500 text-sm">Password is required</p>
+              )}
+              {errors.password?.type === 'minLength' && (
+                <p className="text-red-500 text-sm">
+                  Password must be at least 6 characters
+                </p>
+              )}
 
-                            <label className="label">Email</label>
-                            <input
-                                type="email"
-                                {...register('email')}
-                                className="input" placeholder="Email" />
+              {/* Forgot Password */}
+              <div className="text-right mt-2">
+                <button
+                  type="button"
+                  onClick={handleForgetPass}
+                  className="link link-hover text-sm"
+                >
+                  Forgot password?
+                </button>
+              </div>
 
+              {/* Login Button */}
+              <button className="btn bg-my-primary text-white mt-4 w-full">
+                Login
+              </button>
+            </fieldset>
 
-                            <label className="label">Password</label>
-                            <input
-                                type="password"
-                                {...register('password', {
-                                    required: true,
-                                    minLength: 6
-                                })}
-                                className="input" placeholder="Password" />
-                            {
-                                errors.password?.type === 'required' && <p className='text-red-500'>Password is required</p>
-                            }
-                            {
-                                errors.password?.type === 'minLength' && <p className='text-red-500'>Password Must be 6 characters or longer</p>
-                            }
+            <p className="text-center mt-3 text-sm">
+              New to this website?{' '}
+              <Link
+                state={{ from }}
+                className="link text-my-primary font-semibold"
+                to="/register"
+              >
+                Register
+              </Link>
+            </p>
+          </form>
 
-                            <div>
-                                <a
-                                    onClick={handleForgetPass}
-                                    className="link link-hover text-sm"
-                                >
-                                    Forgot password?
-                                </a>
-                            </div>
-
-                            <button className="btn btn-primary text-black mt-4">Login</button>
-                        </fieldset>
-                        <p><small>New to this website? <Link state={{ from }} className="btn btn-link" to="/register">Register</Link></small></p>
-                    </form>
-                    <SocialLogin></SocialLogin>
-                </div>
-            </div>
+         
+          <SocialLogin />
         </div>
-
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Login;

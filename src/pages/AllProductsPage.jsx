@@ -10,7 +10,7 @@ const AllProductsPage = () => {
   const [sort, setSort] = useState('desc');
   const [date, setDate] = useState('');
   const [page, setPage] = useState(1);
-  const limit = 6;
+  
 
   const { data = {}, isLoading } = useQuery({
     queryKey: ['all-products', sort, date, page],
@@ -19,7 +19,7 @@ const AllProductsPage = () => {
         sort,
         date,
         page,
-        limit,
+        
       }).toString();
 
       const res = await axios.get(`/api/products?${params}`);

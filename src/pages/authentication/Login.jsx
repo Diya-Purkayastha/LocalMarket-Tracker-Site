@@ -27,48 +27,64 @@ const Login = () => {
             })
             .catch(error => toast.error(error.code))
     }
+    const handleForgetPass = () => {
+        const email = email2.current.value;
+        if (!email) {
+            toast.warning("Please enter your email.");
+            return;
+        }
+        navigate('/forgetpass', { state: email });
+
+    }
 
     return (
         <div className='container mx-auto '>
             <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-            <div className="card-body">
-                <h1 className="text-5xl font-bold">Please Login</h1>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <fieldset className="fieldset">
+                <div className="card-body">
+                    <h1 className="text-5xl font-bold">Please Login</h1>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <fieldset className="fieldset">
 
-                        <label className="label">Email</label>
-                        <input
-                            type="email"
-                            {...register('email')}
-                            className="input" placeholder="Email" />
+                            <label className="label">Email</label>
+                            <input
+                                type="email"
+                                {...register('email')}
+                                className="input" placeholder="Email" />
 
 
-                        <label className="label">Password</label>
-                        <input
-                            type="password"
-                            {...register('password', {
-                                required: true,
-                                minLength: 6
-                            })}
-                            className="input" placeholder="Password" />
-                        {
-                            errors.password?.type === 'required' && <p className='text-red-500'>Password is required</p>
-                        }
-                        {
-                            errors.password?.type === 'minLength' && <p className='text-red-500'>Password Must be 6 characters or longer</p>
-                        }
+                            <label className="label">Password</label>
+                            <input
+                                type="password"
+                                {...register('password', {
+                                    required: true,
+                                    minLength: 6
+                                })}
+                                className="input" placeholder="Password" />
+                            {
+                                errors.password?.type === 'required' && <p className='text-red-500'>Password is required</p>
+                            }
+                            {
+                                errors.password?.type === 'minLength' && <p className='text-red-500'>Password Must be 6 characters or longer</p>
+                            }
 
-                        <div><a className="link link-hover">Forgot password?</a></div>
+                            <div>
+                                <a
+                                    onClick={handleForgetPass}
+                                    className="link link-hover text-sm"
+                                >
+                                    Forgot password?
+                                </a>
+                            </div>
 
-                        <button className="btn btn-primary text-black mt-4">Login</button>
-                    </fieldset>
-                    <p><small>New to this website? <Link state={{ from }} className="btn btn-link" to="/register">Register</Link></small></p>
-                </form>
-                <SocialLogin></SocialLogin>
+                            <button className="btn btn-primary text-black mt-4">Login</button>
+                        </fieldset>
+                        <p><small>New to this website? <Link state={{ from }} className="btn btn-link" to="/register">Register</Link></small></p>
+                    </form>
+                    <SocialLogin></SocialLogin>
+                </div>
             </div>
         </div>
-        </div>
-        
+
     );
 };
 

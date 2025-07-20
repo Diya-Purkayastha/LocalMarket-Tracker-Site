@@ -26,6 +26,8 @@ import DetailsPage from "../pages/DetailsPage";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import PaymentCancelled from "../pages/PaymentCancel";
 import PaymentPage from "../pages/PaymentPage";
+import PrivacyPolicy from "../pages/PrivacyPolicy";
+import ForgetPass from "../pages/authentication/ForgetPass";
 
 
 
@@ -69,6 +71,14 @@ export const router = createBrowserRouter([
       {
         path: '/payment',
         Component: PaymentPage
+      }, 
+      {
+        path: '/privacypolicy',
+        Component: PrivacyPolicy
+      },
+      {
+        path: 'forgetpass',
+        Component: ForgetPass
       }
     ]
   },

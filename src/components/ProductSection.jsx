@@ -9,7 +9,7 @@ const ProductSection = () => {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
 useEffect(() => {
-  fetch("http://localhost:5000/api/products?status=approved&limit=6")
+  fetch("http://localhost:5000/api/products?status=approved&limit=8")
     .then((res) => res.json())
     .then((data) => {
       // If backend returns { products: [...] }

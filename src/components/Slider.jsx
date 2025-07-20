@@ -4,149 +4,128 @@ import { Navigation, Pagination, A11y } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import '../css/slider.css'
 import { Slide } from 'react-awesome-reveal';
 
 const Slider = () => {
-    return (
-        <div className="w-full h-[80vh] group relative">
-            <Swiper
-                modules={[Navigation, Pagination, A11y]}
-                spaceBetween={50}
-                slidesPerView={1}
-                navigation
+  return (
+    <div className="w-full h-[80vh] group relative">
+      <Swiper
+        modules={[Navigation, Pagination, A11y]}
+        spaceBetween={50}
+        slidesPerView={1}
+        navigation
+        pagination={{ clickable: true }}
+        className="h-full"
+      >
+        {/* ✅ Slide 1 */}
+        <SwiperSlide>
+          <div
+            className="relative h-[500px] md:h-[80vh] w-full bg-cover bg-center flex items-center justify-center"
+            style={{
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1557844352-761f2565b576?w=1200&auto=format&fit=crop&q=80')",
+            }}
+          >
+            {/* Dark Overlay */}
+            <div className="absolute inset-0 bg-black/50 z-0"></div>
 
-                className="h-full"
-            >
-                {/* Slide 1 */}
-                <SwiperSlide>
-                    <div
-                        className="relative h-[500px] md:h-[80vh] w-full bg-cover bg-center flex items-center rounded-2xl"
-                        style={{
-                            backgroundImage: "url('https://i.ibb.co/sGShmx6/eaters-collective-12e-HC6-Fx-Pyg-unsplash.jpg')",
-                        }}
-                    >
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-black opacity-40 z-0"></div>
+            {/* Centered Content */}
+            <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-2xl px-6 text-white">
+              <Slide direction="up" cascade damping={0.15} triggerOnce delay={300}>
+                <h1 className="text-3xl md:text-5xl font-light leading-tight">
+                  Fresh Vegetables <br />
+                  <span className="font-bold">Direct from Farmers</span>
+                </h1>
 
-                        {/* Content */}
-                        <div className="relative z-10 w-full flex flex-col md:flex-row items-center justify-between px-8 md:px-16">
-                            {/* Left Text Content */}
-                            <div className="md:w-1/2 text-center md:text-left py-12 md:pl-10 space-y-6 text-white">
-                            <Slide direction="up" cascade damping={0.15} triggerOnce delay={300}>
-                                 <h1 className="text-3xl md:text-5xl font-light leading-tight ">
-                                    Healthy Pasta <br />
-                                    <span className="font-bold">Nutritional Info</span>
-                                </h1>
-                            
-                               
-                                <ul className="space-y-2 text-base">
-                                    <li>🌿 Fresh Basil & Herb Sauce</li>
-                                    <li>🧄 Garlic Olive Oil Infusion Pack</li>
-                                    <li>🍅 Sun-Dried Tomato Garnish</li>
-                                    <li>🍝 Organic Whole Wheat Pasta</li>
-                                </ul>
-                                <Slide direction="down" cascade damping={0.15} triggerOnce>
-                                      <button className="bg-white text-black px-6 py-3 mt-4 hover:bg-gray-200">
-                                    START JOURNEY
-                                </button>
-                                </Slide>
-                              
-                                </Slide>
-                            </div>
+                <ul className="space-y-2 text-base mt-4">
+                  <li>🌱 100% Organic & Locally Sourced</li>
+                  <li>🥬 Daily Price Updates from Markets</li>
+                  <li>🛒 Compare Across Different Areas</li>
+                  <li>🚚 Save More, Buy Smart</li>
+                </ul>
 
-                            {/* Optional right side space */}
-                            <div className="md:w-1/2 hidden md:block"></div>
-                        </div>
-                    </div>
-                </SwiperSlide>
+                <Slide direction="down" cascade damping={0.15} triggerOnce>
+                  <button className="bg-white text-black px-6 py-3 mt-6 hover:bg-gray-200 rounded-md">
+                    VIEW MARKET PRICES
+                  </button>
+                </Slide>
+              </Slide>
+            </div>
+          </div>
+        </SwiperSlide>
 
+        {/* ✅ Slide 2 */}
+        <SwiperSlide>
+          <div
+            className="relative h-[500px] md:h-[80vh] w-full bg-cover bg-center flex items-center justify-center"
+            style={{
+              backgroundImage:
+                "url('https://plus.unsplash.com/premium_photo-1663040589382-88caf6b2bc60?q=80&w=1200&auto=format&fit=crop')",
+            }}
+          >
+            <div className="absolute inset-0 bg-black/50 z-0"></div>
 
-                {/* Slide 2 */}
-                <SwiperSlide>
-                    <div
-                        className="relative h-[500px] md:h-[80vh] w-full bg-cover bg-center flex items-center " // ← added mt-10
-                        style={{
-                            backgroundImage: "url('https://i.ibb.co/5W6TWmSv/amirali-mirhashemian-pc-GND1-s-T5-I-unsplash.jpg')",
-                        }}
-                    >
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-black opacity-40 z-0"></div>
+            <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-2xl px-6 text-white">
+              <Slide direction="up" cascade damping={0.15} triggerOnce delay={300}>
+                <h1 className="text-3xl md:text-5xl font-light leading-tight">
+                  Seasonal Fruits <br />
+                  <span className="font-bold">Best Price in Your Area</span>
+                </h1>
 
-                        {/* Content */}
-                        <div className="relative z-10 w-full flex flex-col md:flex-row items-center justify-between px-8 md:px-16">
-                            {/* Left Text Content */}
-                            <div className="md:w-1/2 text-center md:text-left py-12 md:pl-10 space-y-6 text-white">
-                                 <Slide direction="up" cascade damping={0.15} triggerOnce delay={300}> <h1 className="text-3xl md:text-5xl font-light leading-tight">
-                                    Spicy Chowmein <br />
-                                    <span className="font-bold">10-Minute </span>
-                                </h1>
-                               
-                                <ul className="space-y-2 text-base">
-                                    <li>🍜 Premium Stir-Fry Noodles</li>
-                                    <li>🌶️ Signature Spicy Sauce Blend</li>
-                                    <li>🥕 Pre-cut Veggie Mix (Carrot, Cabbage, Bell Peppers)</li>
-                                    <li>🧄 Garlic & Ginger Flavor Boosters</li>
+                <ul className="space-y-2 text-base mt-4">
+                  <li>🥭 Fresh Mangoes & Jackfruit Deals</li>
+                  <li>🍉 Watermelon & Litchi Specials</li>
+                  <li>📊 Track Price Trends in Real-time</li>
+                  <li>✅ Verified Vendor Listings</li>
+                </ul>
 
-                                </ul>
-                                </Slide>
-                                   <Slide direction="down" cascade damping={0.15} triggerOnce><button className="bg-white text-black px-6 py-3 mt-4 hover:bg-gray-200">
-                                    START JOURNEY
-                                </button></Slide>
-                                
-                            </div>
+                <Slide direction="down" cascade damping={0.15} triggerOnce>
+                  <button className="bg-white text-black px-6 py-3 mt-6 hover:bg-gray-200 rounded-md">
+                    EXPLORE FRUITS
+                  </button>
+                </Slide>
+              </Slide>
+            </div>
+          </div>
+        </SwiperSlide>
 
-                            {/* Optional right side space */}
-                            <div className="md:w-1/2 hidden md:block"></div>
-                        </div>
-                    </div>
-                </SwiperSlide>
+        {/* ✅ Slide 3 */}
+        <SwiperSlide>
+          <div
+            className="relative h-[500px] md:h-[80vh] w-full bg-cover bg-center flex items-center justify-center"
+            style={{
+              backgroundImage:
+                "url('https://plus.unsplash.com/premium_photo-1686529665813-4a33ede6d080?q=80&w=1200&auto=format&fit=crop')",
+            }}
+          >
+            <div className="absolute inset-0 bg-black/50 z-0"></div>
 
+            <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-2xl px-6 text-white">
+              <Slide direction="up" cascade damping={0.15} triggerOnce delay={300}>
+                <h1 className="text-3xl md:text-5xl font-light leading-tight">
+                  Support Local Farmers <br />
+                  <span className="font-bold">Buy Directly from Source</span>
+                </h1>
 
-                {/* Slide 3 */}
-                <SwiperSlide>
-                    <div
-                        className="relative h-[500px] md:h-[80vh] w-full bg-cover bg-center flex items-center " // ← added mt-10
-                        style={{
-                            backgroundImage: "url('https://i.ibb.co/cXprpZJg/david-holifield-k-Pxsq-UGne-XQ-unsplash.jpg')",
-                        }}
-                    >
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-black opacity-40 z-0"></div>
+                <ul className="space-y-2 text-base mt-4">
+                  <li>👨‍🌾 Direct Vendor Connections</li>
+                  <li>💰 Fair Pricing for Everyone</li>
+                  <li>🏪 Nearest Bazar Listings</li>
+                  <li>🔄 Transparent & Updated Data</li>
+                </ul>
 
-                        {/* Content */}
-                        <div className="relative z-10 w-full flex flex-col md:flex-row items-center justify-between px-8 md:px-16">
-                            {/* Left Text Content */}
-                            <div className="md:w-1/2 text-center md:text-left py-12 md:pl-10 space-y-6 text-white">
-                               <Slide direction="up" cascade damping={0.15} triggerOnce delay={300}>
-                                <h1 className="text-3xl md:text-5xl font-light leading-tight">
-                                    Chocolate Cake <br />
-                                    <span className="font-bold">Bake Perfect</span>
-                                </h1>
-                                <ul className="space-y-2 text-base">
-                                    <li>🍫 Rich Dark Cocoa for Deep Flavor</li>
-                                    <li>🥚 All-in-One Dry Cake Mix</li>
-                                    <li>🧈 Buttery Vanilla Fusion</li>
-                                    <li>🍫 Ready-to-Spread Chocolate Ganache</li>
-                                   
-                                </ul>
-                                </Slide>
-                                       <Slide direction="down" cascade damping={0.15} triggerOnce> <button className="bg-white text-black px-6 py-3 mt-4 hover:bg-gray-200">
-                                    START JOURNEY
-                                </button></Slide>
-                               
-                            </div>
-
-                            {/* Optional right side space */}
-                            <div className="md:w-1/2 hidden md:block"></div>
-                        </div>
-                    </div>
-                </SwiperSlide>
-
-            </Swiper>
-        </div>
-    );
+                <Slide direction="down" cascade damping={0.15} triggerOnce>
+                  <button className="bg-white text-black px-6 py-3 mt-6 hover:bg-gray-200 rounded-md">
+                    VIEW FARMERS
+                  </button>
+                </Slide>
+              </Slide>
+            </div>
+          </div>
+        </SwiperSlide>
+      </Swiper>
+    </div>
+  );
 };
 
 export default Slider;

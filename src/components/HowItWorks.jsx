@@ -38,8 +38,8 @@ const HowItWorks = () => {
           className="flex justify-center"
         >
           <img
-        
-src='https://i.ibb.co/35KNmVLr/mexican-tacos-with-beef-tomato-sauce-salsa.jpg'
+
+            src='https://i.ibb.co/Nn7sf8ZD/Sign-up-bro.png'
             alt="How it works"
             className="rounded-xl shadow-lg max-w-md w-full"
           />

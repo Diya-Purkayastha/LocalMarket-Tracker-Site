@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
+import Logo from "./logo";
 
 const Header = () => {
   const { user, logOut } = useAuth();
@@ -23,8 +24,7 @@ const Header = () => {
             to="/"
             className="flex items-center gap-2 font-bold text-xl text-white"
           >
-            <span className="text-3xl">🛍️</span>
-            <span className="hidden sm:inline">LocalMarket Tracker</span>
+            <Logo></Logo>
           </Link>
         </div>
 

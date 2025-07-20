@@ -60,88 +60,128 @@ const UpdateProduct = () => {
   if (isLoading) return <div className="text-center py-10">Loading product...</div>;
 
   return (
+    <div className="p-6 max-w-4xl mx-auto space-y-6">
+  {/* Heading */}
+  <div className="text-center">
+    <h2 className="text-3xl font-extrabold text-my-primary">
+      ✏️ Update Product
+    </h2>
+    <p className="text-gray-500 mt-1 text-sm">
+      Modify the product details and save your changes
+    </p>
+  </div>
+
+  {/* Form */}
+  <form
+    onSubmit={handleSubmit(onSubmit)}
+    className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white rounded-xl shadow-md p-6 border border-my-primary/20"
+  >
+    {/* Market Name */}
     <div>
-      <h2 className="text-2xl font-bold mb-4">Update Product</h2>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="label">Market Name</label>
-          <input
-            defaultValue={product?.marketName}
-            {...register('marketName', { required: true })}
-            className="input input-bordered w-full"
-          />
-        </div>
-
-        <div>
-          <label className="label">Market Description</label>
-          <textarea
-            defaultValue={product?.marketDescription}
-            {...register('marketDescription', { required: true })}
-            className="textarea textarea-bordered w-full"
-          />
-        </div>
-
-        <div>
-          <label className="label">Date</label>
-          <Controller
-            control={control}
-            name="date"
-            render={() => (
-              <DatePicker
-                selected={date}
-                onChange={(date) => setDate(date)}
-                className="input input-bordered w-full"
-              />
-            )}
-          />
-        </div>
-
-        <div>
-          <label className="label">Item Name</label>
-          <input
-            defaultValue={product?.itemName}
-            {...register('itemName', { required: true })}
-            className="input input-bordered w-full"
-          />
-        </div>
-
-        <div>
-          <label className="label">Item Description</label>
-          <textarea
-            defaultValue={product?.itemDescription}
-            {...register('itemDescription')}
-            className="textarea textarea-bordered w-full"
-          />
-        </div>
-
-        <div>
-          <label className="label">Price per Unit</label>
-          <input
-            type="number"
-            step="0.01"
-            defaultValue={product?.pricePerUnit}
-            {...register('pricePerUnit', { required: true })}
-            className="input input-bordered w-full"
-          />
-        </div>
-
-        <div>
-          <label className="label">Image URL</label>
-          <input
-            defaultValue={product?.image}
-            {...register('image', { required: true })}
-            className="input input-bordered w-full"
-          />
-        </div>
-
-        <div className="col-span-1 md:col-span-2">
-          <button type="submit" className="btn btn-primary w-full">
-            Update Product
-          </button>
-        </div>
-      </form>
+      <label className="label font-semibold text-gray-700">
+        Market Name <span className="text-red-500">*</span>
+      </label>
+      <input
+        defaultValue={product?.marketName}
+        {...register("marketName", { required: true })}
+        className="input input-bordered w-full focus:ring-2 focus:ring-my-primary transition"
+        placeholder="e.g. Dhaka Main Market"
+      />
     </div>
+
+    {/* Market Description */}
+    <div>
+      <label className="label font-semibold text-gray-700">
+        Market Description <span className="text-red-500">*</span>
+      </label>
+      <textarea
+        defaultValue={product?.marketDescription}
+        {...register("marketDescription", { required: true })}
+        className="textarea textarea-bordered w-full focus:ring-2 focus:ring-my-primary transition"
+        placeholder="Short description about the market..."
+      />
+    </div>
+
+    {/* Date */}
+    <div>
+      <label className="label font-semibold text-gray-700">Date</label>
+      <Controller
+        control={control}
+        name="date"
+        render={() => (
+          <DatePicker
+            selected={date}
+            onChange={(date) => setDate(date)}
+            className="input input-bordered w-full focus:ring-2 focus:ring-my-primary transition"
+          />
+        )}
+      />
+    </div>
+
+    {/* Item Name */}
+    <div>
+      <label className="label font-semibold text-gray-700">
+        Item Name <span className="text-red-500">*</span>
+      </label>
+      <input
+        defaultValue={product?.itemName}
+        {...register("itemName", { required: true })}
+        className="input input-bordered w-full focus:ring-2 focus:ring-my-primary transition"
+        placeholder="e.g. Fresh Onions"
+      />
+    </div>
+
+    {/* Item Description */}
+    <div>
+      <label className="label font-semibold text-gray-700">Item Description</label>
+      <textarea
+        defaultValue={product?.itemDescription}
+        {...register("itemDescription")}
+        className="textarea textarea-bordered w-full focus:ring-2 focus:ring-my-primary transition"
+        placeholder="Brief details about the product..."
+      />
+    </div>
+
+    {/* Price Per Unit */}
+    <div>
+      <label className="label font-semibold text-gray-700">
+        Price per Unit (৳) <span className="text-red-500">*</span>
+      </label>
+      <input
+        type="number"
+        step="0.01"
+        defaultValue={product?.pricePerUnit}
+        {...register("pricePerUnit", { required: true })}
+        className="input input-bordered w-full focus:ring-2 focus:ring-my-primary transition"
+        placeholder="e.g. 120.50"
+      />
+    </div>
+
+    {/* Image URL */}
+    <div>
+      <label className="label font-semibold text-gray-700">
+        Image URL <span className="text-red-500">*</span>
+      </label>
+      <input
+        defaultValue={product?.image}
+        {...register("image", { required: true })}
+        className="input input-bordered w-full focus:ring-2 focus:ring-my-primary transition"
+        placeholder="https://example.com/product.jpg"
+      />
+    </div>
+
+    {/* Submit Button */}
+    <div className="col-span-1 md:col-span-2 mt-4">
+      <button
+        type="submit"
+        className="btn bg-my-primary hover:bg-my-primary-dark text-white font-semibold w-full shadow-md transition"
+      >
+        ✅ Update Product
+      </button>
+    </div>
+  </form>
+</div>
+
   );
 };
 

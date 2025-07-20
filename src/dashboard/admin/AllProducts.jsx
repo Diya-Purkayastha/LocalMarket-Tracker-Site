@@ -66,96 +66,173 @@ const AllProducts = () => {
   if (isLoading) return <div className="text-center py-20">Loading products...</div>;
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">All Products</h2>
+   <div className="p-6 max-w-7xl mx-auto space-y-6">
+  {/* Heading */}
+  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <h2 className="text-3xl font-extrabold text-my-primary tracking-tight">
+      All Products
+    </h2>
+  </div>
 
-      <div className="overflow-x-auto">
-        <table className="table w-full table-zebra">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Market</th>
-              <th>Vendor</th>
-              <th>Price</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Feedback</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((p) => (
-              <tr key={p._id}>
-                <td>
-                  <div className="flex items-center gap-2">
-                    <img src={p.image} className="w-10 h-10 rounded" />
-                    <span>{p.itemName}</span>
-                  </div>
-                </td>
-                <td>{p.marketName}</td>
-                <td>{p.vendorName || p.vendorEmail}</td>
-                <td>৳{p.pricePerUnit}/kg</td>
-                <td>{p.date}</td>
-                <td>
-                  <span className={`badge badge-${p.status === 'approved' ? 'success' : p.status === 'rejected' ? 'error' : 'warning'}`}>
-                    {p.status}
+  {/* ✅ Products Table */}
+  <div className="overflow-x-auto rounded-xl border border-my-primary/20 shadow-md">
+    <table className="table-auto w-full">
+      <thead className="bg-my-primary/10 text-my-primary">
+        <tr>
+          <th className="p-3 text-left">Product</th>
+          <th className="p-3 text-left">Market</th>
+          <th className="p-3 text-left">Vendor</th>
+          <th className="p-3 text-left">Price</th>
+          <th className="p-3 text-left">Date</th>
+          <th className="p-3 text-left">Status</th>
+          <th className="p-3 text-left">Feedback</th>
+          <th className="p-3 text-left">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {products.length === 0 ? (
+          <tr>
+            <td colSpan="8" className="text-center py-6 text-gray-500">
+              🚫 No products found
+            </td>
+          </tr>
+        ) : (
+          products.map((p) => (
+            <tr
+              key={p._id}
+              className="even:bg-gray-50 hover:bg-my-primary/5 transition-colors"
+            >
+              {/* Product */}
+              <td className="p-3">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={p.image}
+                    className="w-12 h-12 rounded-lg border border-gray-200 shadow-sm object-cover"
+                    alt={p.itemName}
+                  />
+                  <span className="font-medium text-gray-800">{p.itemName}</span>
+                </div>
+              </td>
+
+              {/* Market */}
+              <td className="p-3 text-gray-700">{p.marketName}</td>
+
+              {/* Vendor */}
+              <td className="p-3 text-sm text-gray-600">
+                {p.vendorName || p.vendorEmail}
+              </td>
+
+              {/* Price */}
+              <td className="p-3 font-semibold text-my-primary">
+                ৳{p.pricePerUnit}/kg
+              </td>
+
+              {/* Date */}
+              <td className="p-3 text-sm text-gray-500">{p.date}</td>
+
+              {/* Status */}
+              <td className="p-3">
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    p.status === "approved"
+                      ? "bg-green-100 text-green-700"
+                      : p.status === "rejected"
+                      ? "bg-red-100 text-red-700"
+                      : "bg-yellow-100 text-yellow-700"
+                  }`}
+                >
+                  {p.status}
+                </span>
+              </td>
+
+              {/* Feedback */}
+              <td className="p-3">
+                {p.status === "rejected" ? (
+                  <span className="text-xs italic text-red-500">
+                    {p.rejectionFeedback || "—"}
                   </span>
-                </td>
-                <td>
-                  {p.status === 'rejected' ? (
-                    <span className="text-xs italic text-red-500">{p.rejectionFeedback || '—'}</span>
-                  ) : '—'}
-                </td>
-                <td className="space-x-1">
-                  {p.status === 'pending' && (
-                    <>
-                      <button onClick={() => approveMutation.mutate(p._id)} className="btn btn-xs btn-success">
-                        Approve
-                      </button>
-                      <button onClick={() => setRejectionModal(p)} className="btn btn-xs btn-warning">
-                        Reject
-                      </button>
-                    </>
-                  )}
-                  <Link to={`/dashboard/update-product/${p._id}`} className="btn btn-xs btn-info">
-                    Update
-                  </Link>
-                  <button onClick={() => handleDelete(p._id)} className="btn btn-xs btn-error">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                ) : (
+                  <span className="text-gray-400">—</span>
+                )}
+              </td>
 
-      {/* Rejection Feedback Modal */}
-      {rejectionModal && (
-        <dialog open className="modal modal-bottom sm:modal-middle">
-          <div className="modal-box">
-            <h3 className="font-bold text-lg">Reject Product</h3>
-            <p className="py-2">Provide a reason for rejection:</p>
-            <textarea
-              className="textarea textarea-bordered w-full"
-              rows={4}
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-              placeholder="Write feedback..."
-            />
-            <div className="modal-action">
-              <button
-                className="btn btn-error"
-                onClick={() => rejectMutation.mutate({ id: rejectionModal._id, feedback })}
-              >
-                Submit
-              </button>
-              <button className="btn" onClick={() => setRejectionModal(null)}>Cancel</button>
-            </div>
-          </div>
-        </dialog>
-      )}
-    </div>
+              {/* Actions */}
+              <td className="p-3 space-x-2 flex flex-wrap gap-2">
+                {p.status === "pending" && (
+                  <>
+                    <button
+                      onClick={() => approveMutation.mutate(p._id)}
+                      className="btn btn-xs bg-green-500 hover:bg-green-600 text-white shadow-sm"
+                    >
+                      ✅ Approve
+                    </button>
+                    <button
+                      onClick={() => setRejectionModal(p)}
+                      className="btn btn-xs bg-yellow-500 hover:bg-yellow-600 text-white shadow-sm"
+                    >
+                      ❌ Reject
+                    </button>
+                  </>
+                )}
+
+                <Link
+                  to={`/dashboard/update-product/${p._id}`}
+                  className="btn btn-xs bg-blue-500 hover:bg-blue-600 text-white shadow-sm"
+                >
+                  ✏️ Update
+                </Link>
+                <button
+                  onClick={() => handleDelete(p._id)}
+                  className="btn btn-xs bg-red-500 hover:bg-red-600 text-white shadow-sm"
+                >
+                  🗑 Delete
+                </button>
+              </td>
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+  </div>
+
+  {/* Rejection Feedback Modal */}
+  {rejectionModal && (
+    <dialog open className="modal modal-bottom sm:modal-middle">
+      <div className="modal-box rounded-xl">
+        <h3 className="font-bold text-xl text-red-600 flex items-center gap-2">
+          ❌ Reject Product
+        </h3>
+        <p className="py-3 text-gray-600">
+          Please provide a reason for rejection:
+        </p>
+        <textarea
+          className="textarea textarea-bordered w-full focus:border-red-400 focus:ring-2 focus:ring-red-200"
+          rows={4}
+          value={feedback}
+          onChange={(e) => setFeedback(e.target.value)}
+          placeholder="Write rejection feedback..."
+        />
+        <div className="modal-action flex gap-3">
+          <button
+            className="btn bg-red-500 hover:bg-red-600 text-white shadow-sm"
+            onClick={() =>
+              rejectMutation.mutate({ id: rejectionModal._id, feedback })
+            }
+          >
+            Submit
+          </button>
+          <button
+            className="btn btn-outline"
+            onClick={() => setRejectionModal(null)}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </dialog>
+  )}
+</div>
+
   );
 };
 

@@ -58,80 +58,128 @@ const AllAdvertisements = () => {
   if (isLoading) return <div className="text-center py-20">Loading advertisements...</div>;
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">All Advertisements</h2>
+  <div className="p-6 max-w-7xl mx-auto space-y-6">
+  {/* Heading */}
+  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <h2 className="text-3xl font-extrabold text-my-primary tracking-tight">
+      All Advertisements
+    </h2>
+  </div>
 
-      <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Status</th>
-              <th>Update Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ads.map((ad) => (
-              <tr key={ad._id}>
-                <td>
-                  <img src={ad.image} className="w-16 h-12 object-cover rounded" />
-                </td>
-                <td>{ad.title}</td>
-                <td className="text-sm">{ad.description}</td>
-                <td>
-                  <span className={`badge badge-${ad.status === 'approved' ? 'success' : ad.status === 'rejected' ? 'error' : 'warning'}`}>
-                    {ad.status}
-                  </span>
-                </td>
-                <td>
-                  {editingAdId === ad._id ? (
-                    <div className="flex gap-2">
-                      <select
-                        className="select select-bordered select-sm"
-                        value={newStatus}
-                        onChange={(e) => setNewStatus(e.target.value)}
-                      >
-                        <option disabled value="">Choose</option>
-                        <option value="approved">Approve</option>
-                        <option value="rejected">Reject</option>
-                        <option value="pending">Pending</option>
-                      </select>
-                      <button
-                        className="btn btn-xs btn-primary"
-                        onClick={() => updateStatus.mutate({ id: ad._id, status: newStatus })}
-                      >
-                        Save
-                      </button>
-                    </div>
-                  ) : (
-                    <button
-                      className="btn btn-xs btn-outline"
-                      onClick={() => {
-                        setEditingAdId(ad._id);
-                        setNewStatus(ad.status);
-                      }}
+  {/* ✅ Ads Table */}
+  <div className="overflow-x-auto rounded-xl border border-my-primary/20 shadow-md">
+    <table className="table-auto w-full">
+      <thead className="bg-my-primary/10 text-my-primary uppercase text-sm">
+        <tr>
+          <th className="p-3 text-left">Image</th>
+          <th className="p-3 text-left">Title</th>
+          <th className="p-3 text-left">Description</th>
+          <th className="p-3 text-left">Status</th>
+          <th className="p-3 text-left">Update Status</th>
+          <th className="p-3 text-left">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {ads.length === 0 ? (
+          <tr>
+            <td colSpan="6" className="text-center py-6 text-gray-500">
+              📢 No advertisements found
+            </td>
+          </tr>
+        ) : (
+          ads.map((ad) => (
+            <tr
+              key={ad._id}
+              className="even:bg-gray-50 hover:bg-my-primary/5 transition-colors"
+            >
+              {/* Image */}
+              <td className="p-3">
+                <img
+                  src={ad.image}
+                  alt={ad.title}
+                  className="w-20 h-14 rounded-lg object-cover border border-gray-200 shadow-sm"
+                />
+              </td>
+
+              {/* Title */}
+              <td className="p-3 font-semibold text-gray-800">{ad.title}</td>
+
+              {/* Description */}
+              <td className="p-3 text-sm text-gray-600 max-w-xs truncate">
+                {ad.description}
+              </td>
+
+              {/* Status Badge */}
+              <td className="p-3">
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    ad.status === "approved"
+                      ? "bg-green-100 text-green-700"
+                      : ad.status === "rejected"
+                      ? "bg-red-100 text-red-700"
+                      : "bg-yellow-100 text-yellow-700"
+                  }`}
+                >
+                  {ad.status}
+                </span>
+              </td>
+
+              {/* Update Status */}
+              <td className="p-3">
+                {editingAdId === ad._id ? (
+                  <div className="flex gap-2">
+                    <select
+                      className="select select-bordered select-sm"
+                      value={newStatus}
+                      onChange={(e) => setNewStatus(e.target.value)}
                     >
-                      Edit
+                      <option disabled value="">
+                        Choose
+                      </option>
+                      <option value="approved">Approve</option>
+                      <option value="rejected">Reject</option>
+                      <option value="pending">Pending</option>
+                    </select>
+                    <button
+                      className="btn btn-xs bg-my-primary hover:bg-my-primary-dark text-white shadow-sm"
+                      onClick={() =>
+                        updateStatus.mutate({ id: ad._id, status: newStatus })
+                      }
+                    >
+                      Save
                     </button>
-                  )}
-                </td>
-                <td>
+                  </div>
+                ) : (
                   <button
-                    className="btn btn-xs btn-error"
-                    onClick={() => handleDelete(ad._id)} 
+                    className="btn btn-xs btn-outline"
+                    onClick={() => {
+                      setEditingAdId(ad._id);
+                      setNewStatus(ad.status);
+                    }}
                   >
-                    Delete
+                    Edit
                   </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+                )}
+              </td>
+
+              {/* Actions */}
+              <td className="p-3">
+                <button
+                  className="btn btn-xs bg-red-500 hover:bg-red-600 text-white shadow-sm"
+                  onClick={() => handleDelete(ad._id)}
+                >
+                  🗑 Delete
+                </button>
+              </td>
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
+  </div>
+</div>
+
   );
 };
 

@@ -6,7 +6,7 @@ const AdvertisementCarousel = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/advertisements?status=approved")
+    fetch("https://b11a12-server-side-diya-purkayastha.vercel.app/api/advertisements?status=approved")
       .then((res) => res.json())
       .then((data) => {
         setAds(data.ads);

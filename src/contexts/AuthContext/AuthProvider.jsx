@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
             if(currentUser?.email){
                 console.log("inside it")
                 try{
-                    const res = await axios.post('http://localhost:5000/jwt', {
+                    const res = await axios.post('https://b11a12-server-side-diya-purkayastha.vercel.app/jwt', {
                         email: currentUser.email,
                     }) ;
                     localStorage.setItem('access-token', res.data.token)

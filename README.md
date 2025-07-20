@@ -1,12 +1,102 @@
-# React + Vite
+# 🌱 LocalMarket Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A **real-time market price tracking platform** for Bangladeshi local markets.  
+It connects **farmers, vendors, and buyers**, showing **fresh prices, seasonal trends, and product availability** in different bazaars.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Demo
 
-## Expanding the ESLint configuration
+👉 **[https://localmarkettracker.netlify.app/](https://localmarkettracker.netlify.app/)**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🎯 Purpose
+
+✅ Help **buyers** compare prices from different markets.  
+✅ Empower **farmers/vendors** to list and update their products.  
+✅ Enable **admins** to approve products & manage marketplace content.  
+✅ Provide **transparent price trends** for common vegetables & fruits.
+
+---
+
+## ✨ Key Features
+
+- **🔑 Authentication**
+  - Firebase Auth with Google Sign-in / Email-Password
+  - Role-based Access (Admin, Vendor, User)
+
+- **🛒 Product Management**
+  - Vendors can add, update, delete their products
+  - Admin approves or rejects vendor products
+  - Public can view approved products
+
+- **📊 Market Insights**
+  - Real-time product price comparison
+  - Seasonal trends & historical price tracking
+
+- **📱 Responsive UI**
+  - **DaisyUI Drawer Sidebar** for dashboard
+  - Mobile-friendly with Swiper Hero Slider
+
+- **👤 User Dashboard**
+  - View watchlist & orders
+  - Track price trends
+
+- **🏪 Vendor Dashboard**
+  - Add & manage products
+  - View product approval status
+
+- **🛠 Admin Dashboard**
+  - Manage all users
+  - Approve/reject/delete products
+  - View all ads/orders
+
+---
+
+## 🖥 Tech Stack
+
+### Frontend
+- ⚛ **React + React Router**
+- 🎨 **Tailwind CSS + DaisyUI**
+- 🎡 **Swiper.js** (Hero Slider)
+- 🔄 **TanStack React Query**
+- 🔐 **Firebase Auth**
+- 🔔 **React-Toastify**
+- 🎭 **react-awesome-reveal** (animations)
+
+### Backend
+- 🚀 **Node.js + Express**
+- 📦 **MongoDB Atlas**
+- 🔐 **Firebase Admin SDK for token verification**
+- 🛡 **JWT Middleware for secure routes**
+
+---
+
+## 📦 NPM Packages Used
+
+### Frontend
+- `react-router-dom`
+- `axios`
+- `@tanstack/react-query`
+- `firebase`
+- `daisyui`
+- `tailwindcss`
+- `swiper`
+- `react-awesome-reveal`
+- `react-toastify`
+- `lucide-react`
+
+### Backend
+- `express`
+- `mongodb`
+- `cors`
+- `dotenv`
+- `firebase-admin`
+- `jsonwebtoken` 
+- `nodemon` 
+
+---
+
+
+

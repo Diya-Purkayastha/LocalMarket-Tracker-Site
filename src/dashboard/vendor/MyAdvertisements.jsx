@@ -78,78 +78,127 @@ const MyAdvertisements = () => {
   if (isLoading) return <div>Loading advertisements...</div>;
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">My Advertisements</h2>
+    <div className="max-w-7xl mx-auto p-6 bg-white rounded-xl shadow-lg border border-my-primary/30">
+  <h2 className="text-3xl font-extrabold text-my-primary mb-8 border-b-2 border-my-primary pb-3">
+    My Advertisements
+  </h2>
 
-      <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ads.map((ad) => (
-              <tr key={ad._id}>
-                <td><img src={ad.image} className="w-16 h-10 object-cover" /></td>
-                <td>{ad.title}</td>
-                <td>{ad.description}</td>
-                <td><span className="badge badge-info">{ad.status}</span></td>
-                <td className="flex gap-2">
-                  <button
-                    className="btn btn-sm btn-outline"
-                    onClick={() => setEditingAd(ad)}
-                  >Edit</button>
-                  <button
-                    className="btn btn-sm btn-error"
-                    onClick={() => handleDelete(ad._id)}
-                  >Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+  <div className="overflow-x-auto rounded-lg border border-my-primary/20 shadow-sm">
+    <table className="table-auto w-full border-collapse">
+      <thead className="bg-my-primary/10 text-my-primary">
+        <tr>
+          <th className="p-3 text-left font-semibold">Image</th>
+          <th className="p-3 text-left font-semibold">Title</th>
+          <th className="p-3 text-left font-semibold">Description</th>
+          <th className="p-3 text-center font-semibold">Status</th>
+          <th className="p-3 text-center font-semibold">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {ads.map((ad) => (
+          <tr
+            key={ad._id}
+            className="even:bg-my-primary/5 hover:bg-my-primary/20 transition-colors"
+          >
+            <td className="p-2">
+              <img
+                src={ad.image}
+                alt={ad.title}
+                className="w-20 h-12 object-cover rounded-md border border-my-primary/30 shadow-sm"
+              />
+            </td>
+            <td className="p-3 align-top font-medium">{ad.title}</td>
+            <td className="p-3 align-top text-my-primary/80 max-w-xs break-words">
+              {ad.description}
+            </td>
+            <td className="p-3 text-center align-top">
+              <span className="badge bg-my-primary text-white px-3 py-1 text-sm font-semibold capitalize">
+                {ad.status}
+              </span>
+            </td>
+            <td className="p-3 text-center space-x-2 whitespace-nowrap align-top">
+              <button
+                className="btn btn-sm btn-outline border-my-primary text-my-primary hover:bg-my-primary hover:text-white transition"
+                onClick={() => setEditingAd(ad)}
+                aria-label={`Edit ad: ${ad.title}`}
+              >
+                Edit
+              </button>
+              <button
+                className="btn btn-sm btn-error"
+                onClick={() => handleDelete(ad._id)}
+                aria-label={`Delete ad: ${ad.title}`}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
 
-      {/* Update Modal */}
-      {editingAd && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-lg relative">
-            <h3 className="text-xl font-semibold mb-4">Update Advertisement</h3>
+  {/* Update Modal */}
+  {editingAd && (
+    <div
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="update-ad-title"
+    >
+      <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-lg relative">
+        <h3
+          id="update-ad-title"
+          className="text-2xl font-semibold text-my-primary mb-6"
+        >
+          Update Advertisement
+        </h3>
 
-            <form onSubmit={handleUpdate} className="space-y-3">
-              <input
-                defaultValue={editingAd.title}
-                name="title"
-                className="input input-bordered w-full"
-              />
-              <textarea
-                defaultValue={editingAd.description}
-                name="description"
-                className="textarea textarea-bordered w-full"
-              />
-              <input
-                defaultValue={editingAd.image}
-                name="image"
-                className="input input-bordered w-full"
-              />
-              <div className="mt-3">
-                <button type="submit" className="btn btn-primary w-full">Update</button>
-                <button
-                  type="button"
-                  className="btn w-full"
-                  onClick={() => setEditingAd(null)}
-                >Cancel</button>
-              </div>
-            </form>
+        <form onSubmit={handleUpdate} className="space-y-5">
+          <input
+            defaultValue={editingAd.title}
+            name="title"
+            placeholder="Ad Title"
+            className="input input-bordered w-full border-my-primary focus:border-my-primary focus:ring-2 focus:ring-my-primary/40 transition"
+            required
+          />
+          <textarea
+            defaultValue={editingAd.description}
+            name="description"
+            placeholder="Description"
+            rows={4}
+            className="textarea textarea-bordered w-full border-my-primary focus:border-my-primary focus:ring-2 focus:ring-my-primary/40 transition resize-none"
+            required
+          />
+          <input
+            defaultValue={editingAd.image}
+            name="image"
+            placeholder="Image URL"
+            className="input input-bordered w-full border-my-primary focus:border-my-primary focus:ring-2 focus:ring-my-primary/40 transition"
+            required
+          />
+
+          <div className="flex flex-col gap-3 mt-4">
+            <button
+              type="submit"
+              className="btn w-full bg-my-primary hover:bg-my-primary-dark text-white font-semibold shadow-md transition"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              className="btn w-full btn-outline border-my-primary text-my-primary hover:bg-my-primary hover:text-white transition"
+              onClick={() => setEditingAd(null)}
+            >
+              Cancel
+            </button>
           </div>
-        </div>
-      )}
+        </form>
+      </div>
     </div>
+  )}
+</div>
+
   );
 };
 

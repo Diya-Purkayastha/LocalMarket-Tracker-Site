@@ -28,49 +28,70 @@ const PriceTrends = () => {
   });
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">📈 Price Trend Comparison</h2>
+    <div className="p-6 bg-my-accent shadow-lg rounded-xl">
+  {/* ✅ Title */}
+  <h2 className="text-3xl font-bold mb-6 text-white flex items-center gap-2">
+    📈 Price Trend Comparison
+  </h2>
 
-      {/* ✅ Dropdown */}
-      <div className="mb-6">
-        <label className="block mb-1 font-medium">Select Product:</label>
-        <select
-          className="select select-bordered w-full max-w-md"
-          onChange={(e) => setSelectedProductId(e.target.value)}
-          defaultValue=""
-        >
-          <option value="" disabled>Select a product</option>
-          {watchlist.map((item) => (
-            <option key={item._id} value={item.productId}>
-              {item.productName} — {item.marketName}
-            </option>
-          ))}
-        </select>
-      </div>
+  {/* ✅ Product Dropdown */}
+  <div className="mb-6">
+    <label className="block mb-2 font-medium text-white">
+      Select a product to view its price trend:
+    </label>
+    <select
+      className="select select-bordered w-full md:max-w-md focus:outline-none focus:ring-2 focus:ring-my-primary"
+      onChange={(e) => setSelectedProductId(e.target.value)}
+      defaultValue=""
+    >
+      <option value="" disabled>
+        🔽 Choose a product from your watchlist
+      </option>
+      {watchlist.map((item) => (
+        <option key={item._id} value={item.productId}>
+          {item.productName} — {item.marketName}
+        </option>
+      ))}
+    </select>
+  </div>
 
-      {/* ✅ Loading state */}
-      {isLoading && <p>Loading trend data...</p>}
-
-      {/* ✅ Chart when we have data */}
-      {!isLoading && trendData.length > 0 && (
-        <div className="w-full h-96">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={trendData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" />
-              <YAxis domain={['dataMin - 5', 'dataMax + 5']} />
-              <Tooltip />
-              <Line type="monotone" dataKey="price" stroke="#ff014f" strokeWidth={2} />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-      )}
-
-      {/* ✅ No data case */}
-      {!isLoading && selectedProductId && trendData.length === 0 && (
-        <p className="text-gray-500 mt-4">No trend data available for this product.</p>
-      )}
+  {/* ✅ Loading State */}
+  {isLoading && (
+    <div className="text-center py-10 text-gray-500 animate-pulse">
+      ⏳ Loading trend data...
     </div>
+  )}
+
+  {/* ✅ Chart Section */}
+  {!isLoading && trendData.length > 0 && (
+    <div className="w-full h-96 bg-my-accent rounded-lg shadow-inner p-4">
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={trendData}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+          <XAxis dataKey="date" />
+          <YAxis domain={["dataMin - 5", "dataMax + 5"]} />
+          <Tooltip />
+          <Line
+            type="monotone"
+            dataKey="price"
+            stroke="#2E7D32" // use your theme green
+            strokeWidth={2.5}
+            dot={{ r: 4, stroke: "#66BB6A", strokeWidth: 2 }}
+            activeDot={{ r: 6 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  )}
+
+  {/* ✅ No data state */}
+  {!isLoading && selectedProductId && trendData.length === 0 && (
+    <div className="text-center text-gray-500 mt-6 italic">
+      🚫 No trend data available for this product.
+    </div>
+  )}
+</div>
+
   );
 };
 

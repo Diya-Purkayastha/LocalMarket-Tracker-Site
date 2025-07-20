@@ -57,54 +57,85 @@ const Watchlist = () => {
   if (isLoading) return <div className="text-center py-20">Loading watchlist...</div>;
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-6">⭐ My Watchlist</h2>
+   <div className="mt-5">
+  <h2 className="text-3xl font-bold text-my-primary mb-6 flex items-center gap-2">
+    ⭐ My Watchlist
+  </h2>
 
-      {watchlist.length === 0 ? (
-        <div className="text-gray-500">You haven’t added anything to your watchlist yet.</div>
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="table table-zebra w-full">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Product</th>
-                <th>Market</th>
-                <th>Date</th>
-                <th colSpan="2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {watchlist.map((item, idx) => (
-                <tr key={item._id}>
-                  <td>{idx + 1}</td>
-                  <td>{item.productName}</td>
-                  <td>{item.marketName}</td>
-                  <td>{item.date}</td>
-                  <td>
-                    <button
-                      className="btn btn-sm btn-outline"
-                      onClick={() => navigate('/all-products')}
-                    >
-                      ➕ Add More
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      className="btn btn-sm btn-error"
-                      onClick={() => handleRemove(item._id)}
-                      disabled={removingId === item._id}
-                    >
-                      {removingId === item._id ? 'Removing...' : '❌ Remove'}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+  {watchlist.length === 0 ? (
+    <div className="text-gray-500 italic">
+      You haven’t added anything to your watchlist yet.
     </div>
+  ) : (
+    <div className="overflow-x-auto shadow-lg rounded-xl bg-base-100">
+      <table className="table w-full">
+        {/* ✅ Table Header */}
+        <thead className="bg-my-primary text-white text-sm uppercase">
+          <tr>
+            <th className="rounded-tl-xl">#</th>
+            <th>Product</th>
+            <th>Market</th>
+            <th>Date</th>
+            <th className="text-center" colSpan="2">
+              Actions
+            </th>
+          </tr>
+        </thead>
+
+        {/* ✅ Table Body */}
+        <tbody>
+          {watchlist.map((item, idx) => (
+            <tr
+              key={item._id}
+              className="hover:bg-my-neutral transition duration-200"
+            >
+              <td className="font-semibold">{idx + 1}</td>
+
+              {/* Product Name */}
+              <td className="font-medium text-my-primary">
+                {item.productName}
+              </td>
+
+              {/* Market as Badge */}
+              <td>
+                <span className="badge badge-outline badge-accent text-xs">
+                  {item.marketName}
+                </span>
+              </td>
+
+              {/* Date as Badge */}
+              <td>
+                <span className="badge badge-outline badge-secondary text-xs">
+                  {item.date}
+                </span>
+              </td>
+
+              {/* Actions */}
+              <td className="text-center">
+                <button
+                  className="btn btn-sm btn-outline btn-accent"
+                  onClick={() => navigate("/all-products")}
+                >
+                  ➕ Add More
+                </button>
+              </td>
+              <td className="text-center">
+                <button
+                  className="btn btn-sm btn-error hover:btn-warning"
+                  onClick={() => handleRemove(item._id)}
+                  disabled={removingId === item._id}
+                >
+                  {removingId === item._id ? "Removing..." : "❌ Remove"}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+</div>
+
   );
 };
 

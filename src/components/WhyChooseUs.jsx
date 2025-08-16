@@ -32,6 +32,11 @@ const WhyChooseUs = () => {
     >
        {/* Overlay */}
         <div className="absolute inset-0 bg-black/20"></div>
+    <div className="flex justify-center z-10">
+      <h2 className="text-4xl bg-my-primary z-10 text-white p-3 rounded-full inline font-bold ">
+          Get Fresh Items First
+        </h2>
+    </div>
       <VeggiesFruitSection></VeggiesFruitSection>
        {/*<div className="container px-8 py-14 md:py-20 mx-auto">
        

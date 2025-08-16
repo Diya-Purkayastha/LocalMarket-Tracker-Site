@@ -1,80 +1,74 @@
-import { motion } from "framer-motion";
-
+import React from "react";
+import { FaUserPlus, FaSearch, FaShoppingCart } from "react-icons/fa";
 
 const steps = [
   {
-    number: "01",
+    id: 1,
+    icon: <FaUserPlus className="text-white text-3xl" />,
     title: "Register or Login",
-    description: "Create an account or login to access full features effortlessly."
+    description:
+      "Create an account or login to access full features effortlessly.",
   },
   {
-    number: "02",
+    id: 2,
+    icon: <FaSearch className="text-white text-3xl" />,
     title: "Browse Products",
-    description: "Explore fresh market prices updated daily by verified vendors."
+    description:
+      "Explore fresh market prices updated daily by verified vendors.",
   },
   {
-    number: "03",
+    id: 3,
+    icon: <FaShoppingCart className="text-white text-3xl" />,
     title: "Track & Buy",
-    description: "Add to watchlist, compare prices, and make secure purchases."
+    description:
+      "Add to watchlist, compare prices, and make secure purchases.",
   },
 ];
 
 const HowItWorks = () => {
   return (
-    <section className="container mx-auto px-4 py-16">
-      {/* Heading */}
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-my-primary mb-12">
-        How It Works
-      </h2>
+    <section className="py-20 bg-gradient-to-b from-green-50 via-green-100 to-white">
+      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+        {/* Left Image */}
+        <div className="relative group">
+          <div className="bg-white rounded-3xl shadow-2xl p-6 transform transition-transform duration-500 group-hover:rotate-3 group-hover:scale-105">
+            <img
+              src="https://i.ibb.co/Nn7sf8ZD/Sign-up-bro.png"
+              alt="How it works illustration"
+              className="rounded-2xl w-full h-auto"
+            />
+          </div>
+          <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-gradient-to-tr from-green-300 to-green-500 rounded-full opacity-70 blur-3xl animate-pulse"></div>
+          <div className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-tr from-green-200 to-green-400 rounded-full opacity-70 blur-3xl animate-pulse"></div>
+        </div>
 
-      {/* Two Column Layout */}
-      <div className="grid md:grid-cols-2 gap-12 items-center">
-        {/* LEFT: Image */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="flex justify-center"
-        >
-          <img
-
-            src='https://i.ibb.co/Nn7sf8ZD/Sign-up-bro.png'
-            alt="How it works"
-            className="rounded-xl shadow-lg max-w-md w-full"
-          />
-        </motion.div>
-
-        {/* RIGHT: Steps */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="space-y-8"
-        >
-          {steps.map((step, i) => (
-            <div key={i} className="flex items-start gap-6">
-              {/* Number Circle */}
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-my-primary text-white flex items-center justify-center text-lg font-bold">
-                {step.number}
+        {/* Right Steps */}
+        <div>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-green-700 mb-12 tracking-wide">
+            How It Works
+          </h2>
+          <div className="space-y-10">
+            {steps.map((step) => (
+              <div
+                key={step.id}
+                className="flex items-start gap-6 p-6 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-500 transform hover:-translate-y-2"
+              >
+                <div className="flex-shrink-0 w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-[#89c74a] flex items-center justify-center shadow-md text-white text-2xl">
+                  {step.icon}
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-1">
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-600">{step.description}</p>
+                </div>
               </div>
-              {/* Step Content */}
-              <div>
-                <h3 className="text-xl font-semibold text-my-secondary">
-                  {step.title}
-                </h3>
-                <p className="text-gray-600 mt-1">
-                  {step.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 };
 
 export default HowItWorks;
-

@@ -23,7 +23,7 @@ const Login = () => {
   };
 
   const handleForgetPass = () => {
-    const email = getValues('email'); // ✅ FIXED
+    const email = getValues('email'); 
     if (!email) {
       toast.warning("Please enter your email.");
       return;
@@ -32,13 +32,27 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center mt-10">
-      <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
-        <div className="card-body">
-          <h1 className="text-3xl font-bold text-center">Please Login</h1>
+     <div className="relative min-h-screen flex items-center justify-center px-4">
+
+      {/* Background Image with Opacity */}
+      <div
+        className="absolute inset-0 opacity-70 bg-cover bg-center -z-10 bg-no-repeat"
+        style={{
+          backgroundImage: `url('https://i.ibb.co.com/kV6DkRbr/xsharapatx-e-BADS20-DZt-A-unsplash.jpg')`,
+        }}
+
+
+
+      >
+
+      </div>
+   
+  <div className="card bg-opacity-20 backdrop-blur-md w-full max-w-md md:max-w-lg shadow-2xl">
+    <div className="card-body p-8">
+          <h1 className="text-3xl font-bold text-center text-white">Please Login</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <fieldset className="fieldset">
-              <label className="label">Email</label>
+            <fieldset className="fieldset text-white">
+              <label className="label text-white">Email</label>
               <input
                 type="email"
                 {...register('email')}
@@ -46,7 +60,7 @@ const Login = () => {
                 placeholder="Email"
               />
 
-              <label className="label">Password</label>
+              <label className="label text-white">Password</label>
               <input
                 type="password"
                 {...register('password', {
@@ -70,7 +84,7 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={handleForgetPass}
-                  className="link link-hover text-sm"
+                  className="link link-hover text-sm text-white"
                 >
                   Forgot password?
                 </button>
@@ -82,12 +96,12 @@ const Login = () => {
               </button>
             </fieldset>
 
-            <p className="text-center mt-3 text-sm">
+            <p className="text-center mt-3 text-sm text-white">
               New to this website?{' '}
               <Link
                 state={{ from }}
                 className="link text-my-primary font-semibold"
-                to="/register"
+                to="/auth/register"
               >
                 Register
               </Link>

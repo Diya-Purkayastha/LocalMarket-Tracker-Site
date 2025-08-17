@@ -124,7 +124,7 @@ const Header = () => {
           {!user && (
             <>
               <NavLink
-                to="/login"
+                to="/auth/login"
                 className={({ isActive }) =>
                   isActive ? "font-bold" : "hover:text-white/80"
                 }
@@ -132,7 +132,7 @@ const Header = () => {
                 Login
               </NavLink>
               <NavLink
-                to="/register"
+                to="/auth/register"
                 className={({ isActive }) =>
                   isActive ? "font-bold" : "hover:text-white/80"
                 }

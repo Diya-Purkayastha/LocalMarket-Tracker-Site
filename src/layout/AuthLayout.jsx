@@ -6,7 +6,7 @@ const AuthLayout = () => {
         <div className='flex flex-col md:flex-row min-h-screen'>
 
             {/* Left Side - Forms */}
-            <div className='flex-1 flex items-center justify-center bg-base-100'>
+            <div className='flex-1'>
                 <Outlet />
             </div>
 

@@ -74,15 +74,28 @@ const Register = () => {
 
     return (
 
-     <div className="flex justify-center items-center mt-5">
-      <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
+  <div className="relative min-h-screen flex items-center justify-center px-4">
+
+      {/* Background Image with Opacity */}
+      <div
+        className="absolute inset-0 opacity-70 bg-cover bg-center -z-10 bg-no-repeat"
+        style={{
+          backgroundImage: `url('https://i.ibb.co.com/kV6DkRbr/xsharapatx-e-BADS20-DZt-A-unsplash.jpg')`,
+        }}
+
+
+
+      >
+
+      </div>
+      <div className="card  w-full bg-opacity-20 backdrop-blur-md max-w-sm shadow-2xl">
         <div className="card-body">
-          <h1 className="text-3xl font-bold text-center">Create Account</h1>
+          <h1 className="text-3xl font-bold text-center text-white">Create Account</h1>
 
           <form onSubmit={handleSubmit(onSubmit)}>
             <fieldset className="fieldset">
               {/* ✅ Name Field */}
-              <label className="label">Your Name</label>
+              <label className="label text-white">Your Name</label>
               <input
                 type="text"
                 {...register("name", { required: true })}
@@ -94,7 +107,7 @@ const Register = () => {
               )}
 
               {/* ✅ Profile Image Field */}
-              <label className="label mt-3">Profile Picture</label>
+              <label className="label mt-3 text-white">Profile Picture</label>
               <input
                 type="file"
                 onChange={handleImageUpload}
@@ -102,7 +115,7 @@ const Register = () => {
               />
 
               {/* ✅ Email Field */}
-              <label className="label mt-3">Email</label>
+              <label className="label mt-3 text-white">Email</label>
               <input
                 type="email"
                 {...register("email", { required: true })}
@@ -114,7 +127,7 @@ const Register = () => {
               )}
 
               {/* ✅ Password Field */}
-              <label className="label mt-3">Password</label>
+              <label className="label mt-3 text-white">Password</label>
               <input
                 type="password"
                 {...register("password", { required: true, minLength: 6 })}
@@ -139,7 +152,7 @@ const Register = () => {
             </fieldset>
 
             {/* ✅ Login Link */}
-            <p className="text-center mt-4 text-sm">
+            <p className="text-center mt-4 text-sm  text-white">
               Already have an account?{" "}
               <Link className="link text-my-primary font-semibold" to="/login">
                 Login

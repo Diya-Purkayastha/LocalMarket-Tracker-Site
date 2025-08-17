@@ -30,6 +30,7 @@ import PrivacyPolicy from "../pages/PrivacyPolicy";
 import ForgetPass from "../pages/authentication/ForgetPass";
 import AboutPage from "../pages/AboutPage";
 import ContactUs from "../pages/ContactUs";
+import AuthLayout from "../layout/AuthLayout";
 
 
 
@@ -42,14 +43,7 @@ export const router = createBrowserRouter([
             index: true,
             Component:Home
         },
-        {
-            path:'/login',
-            Component:Login
-        },
-        {
-            path: '/register',
-            Component: Register
-        },
+       
         {
           path: '/about',
           Component: AboutPage
@@ -86,11 +80,27 @@ export const router = createBrowserRouter([
         path: '/privacypolicy',
         Component: PrivacyPolicy
       },
-      {
-        path: '/forgetpass',
+      
+    ]
+  },
+  {
+    path:'/auth',
+    element: <AuthLayout></AuthLayout>,
+    children: [
+       {
+            path:'login',
+            Component:Login
+        },
+        {
+            path: 'register',
+            Component: Register
+        },
+        {
+        path: 'forgetpass',
         Component: ForgetPass
       }
     ]
+
   },
   {
     path:'/dashboard',

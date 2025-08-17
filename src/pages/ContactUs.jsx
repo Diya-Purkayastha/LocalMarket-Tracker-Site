@@ -1,79 +1,70 @@
 import React from "react";
-import { NavLink } from "react-router";
 
-const AboutPage = () => {
+import Additional from "../components/Additional";
+
+const ContactUs = () => {
   return (
-    <main>
-      <section className="md:container mx-auto mb-28 px-6 mt-10">
-  <div className="flex flex-col lg:flex-row items-center gap-10 bg-gradient-to-r from-[#caf89e] via-[#c8f1b1] to-[#89c74a] rounded-3xl shadow-lg overflow-hidden p-8 lg:p-12">
-    
-    {/* Left Content */}
-    <div className="flex-1 space-y-6">
-      <h2 className="text-3xl lg:text-5xl font-bold text-[#2f4f1f]">
-        About <span className="text-[#6aa637]">LocalMarket Tracker</span>
-      </h2>
-      <p className="text-lg text-gray-700 leading-relaxed">
-        LocalMarket Tracker is your smart companion for keeping up with daily 
-        essentials. From groceries to fresh produce, we bring you the latest 
-        arrivals, offers, and real-time price updates so you never miss out on 
-        the best deals in your neighborhood.  
-      </p>
-      <p className="text-lg text-gray-700 leading-relaxed">
-        Our mission is to empower every shopper with transparency, convenience, 
-        and savings. Whether you’re at home or on the go, we make sure you have 
-        access to accurate information that helps you shop smarter and live better.
-      </p>
-      <a href="/all-products">
-      <button className="px-8 py-3 bg-[#6aa637] text-white font-semibold rounded-xl shadow-md hover:bg-[#578b2f] transition">
-        View Products
-      </button>
-      </a>
-    </div>
+    <section className="py-20 px-6 md:px-12 lg:px-20 ">
+      <div className="max-w-5xl mx-auto">
+        {/* Card */}
+        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden relative">
+          {/* Gradient Header */}
+          <div className="bg-gradient-to-r from-[#89c74a] to-[#6aa637] p-10 text-center">
+            <h2 className="text-4xl font-bold text-white">Contact Us</h2>
+            <p className="text-white/90 mt-2">
+              Have questions? We’d love to hear from you.
+            </p>
+             
+          </div>
 
-    {/* Right Image / Animation */}
-    <div className="flex-1 flex justify-center">
-      <img
-        src="https://i.ibb.co.com/d41rXNxy/About-us-page-rafiki.png"
-        alt="Market Analysis"
-        className="w-full max-w-md rounded-xl"
-      />
-    </div>
-  </div>
-</section>
+          {/* Form Content */}
+          <div className="p-8 md:p-12">
+            <form className="space-y-6">
+              {/* Name + Email */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  className="w-full p-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#89c74a] shadow-sm"
+                />
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  className="w-full p-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#89c74a] shadow-sm"
+                />
+              </div>
 
-      {/* Hero / Stay Home Section */}
-      <section className="md:container mx-auto mb-28 px-4 mt-10">
-  <div className="flex flex-col-reverse lg:flex-row overflow-hidden">
-    
-    {/* Left Text */}
-    <div className="flex-1 flex justify-center items-center bg-gradient-to-r from-[#caf89e] via-[#c8f1b1] to-[#89c74a] rounded-2xl shadow-lg ">
-      <div className="p-8 lg:p-12 space-y-6 text-center lg:text-left">
-        <h2 className="text-gray-900 text-3xl lg:text-5xl font-bold leading-snug">
-          Stay Home & <br /> 
-          Get All Your Essentials <br /> 
-          From Our Market
-        </h2>
-        <p className="text-gray-800 opacity-90 text-lg max-w-md mx-auto lg:mx-0">
-          Shop smarter and faster — download our app and enjoy seamless grocery delivery right to your door.
-        </p>
+              {/* Subject */}
+              <input
+                type="text"
+                placeholder="Subject"
+                className="w-full p-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#89c74a] shadow-sm"
+              />
 
-       
+              {/* Message */}
+              <textarea
+                rows="5"
+                placeholder="Write your message..."
+                className="w-full p-4 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#89c74a] shadow-sm"
+              ></textarea>
+
+              {/* Submit */}
+              <div className="text-center">
+                <button
+                  type="submit"
+                  className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#89c74a] to-[#6aa637] text-white font-semibold text-lg shadow-md hover:shadow-xl transform hover:-translate-y-1 transition duration-300"
+                >
+                  Send Message
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
       </div>
-    </div>
-
-    {/* Right Animation */}
-    <div className="flex-1 flex items-center justify-center bg-white/20">
-      <img
-        className="w-3/4 h-[500px] lg:w-full object-contain "
-        src="https://i.ibb.co.com/fVvc24jv/Service-24-7.gif"
-        alt="Grocery Delivery Animation"
-      />
-    </div>
-  </div>
-</section>
-
+     <Additional></Additional>
       {/* Arrivals & Offers Section */}
-      <section className="md:container mx-auto mb-28">
+      <section className="md:container mx-auto my-28 ">
    <h2 className="text-[#89c74a] font-bold text-4xl md:text-5xl text-center mb-12">
     Arrivals & Offers
   </h2>
@@ -161,8 +152,8 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
-    </main>
+    </section>
   );
 };
 
-export default AboutPage;
+export default ContactUs;

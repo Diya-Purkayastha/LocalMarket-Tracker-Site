@@ -89,6 +89,14 @@ const Header = () => {
         <nav className="hidden lg:flex gap-4 text-white">
 
           <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? "font-bold" : "hover:text-white/80"
+            }
+          >
+            Home
+          </NavLink>
+          <NavLink
             to="/all-products"
             className={({ isActive }) =>
               isActive ? "font-bold" : "hover:text-white/80"
@@ -103,6 +111,14 @@ const Header = () => {
             }
           >
             About Us
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              isActive ? "font-bold" : "hover:text-white/80"
+            }
+          >
+            Contact Us
           </NavLink>
 
           {!user && (

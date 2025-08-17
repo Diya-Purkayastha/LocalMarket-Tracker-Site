@@ -29,6 +29,7 @@ import PaymentPage from "../pages/PaymentPage";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import ForgetPass from "../pages/authentication/ForgetPass";
 import AboutPage from "../pages/AboutPage";
+import ContactUs from "../pages/ContactUs";
 
 
 
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
         {
           path: '/about',
           Component: AboutPage
+        },
+        {
+          path: '/contact',
+          Component: ContactUs
         },
         {
           path:'/forbidden',

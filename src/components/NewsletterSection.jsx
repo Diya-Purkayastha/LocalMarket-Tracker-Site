@@ -3,9 +3,13 @@ import newsletterBg from "../assets/news.jpg"
 
 const NewsletterSection = () => {
   return (
-    <section className="py-16 px-6 bg-cover relative mt-28 " style={{
+    <section className="rounded-2xl md:mt-32"  >
+      <div className="bg-cover py-16 px-6  relative  " style={{
         backgroundImage: `url(${newsletterBg})`,
-      }} >
+      
+      }}>
+
+      
          {/* Overlay */}
         <div className="absolute inset-0 bg-black/30"></div>
       <div className="max-w-2xl mx-auto text-center relative z-10">
@@ -30,6 +34,7 @@ const NewsletterSection = () => {
             Subscribe
           </button>
         </form>
+      </div>
       </div>
     </section>
   );

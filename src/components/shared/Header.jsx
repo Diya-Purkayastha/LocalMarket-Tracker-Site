@@ -87,6 +87,7 @@ const Header = () => {
 
         {/* ✅ Desktop Menu */}
         <nav className="hidden lg:flex gap-4 text-white">
+
           <NavLink
             to="/all-products"
             className={({ isActive }) =>
@@ -94,6 +95,14 @@ const Header = () => {
             }
           >
             All Products
+          </NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              isActive ? "font-bold" : "hover:text-white/80"
+            }
+          >
+            About Us
           </NavLink>
 
           {!user && (

@@ -31,7 +31,7 @@ const testimonials = [
 
 const TestimonialSection = () => {
   return (
-    <section className="py-20 bg-cover bg-center relative"
+    <section className="py-20 bg-cover bg-center relative md:mt-20"
       style={{
       backgroundImage: `url(${bg2})`,
       }} >

@@ -6,6 +6,7 @@ import HowItWorks from '../components/HowItWorks';
 import VeggiesFruitSection from '../components/VeggiesFruitSection';
 import TestimonialSection from '../components/TestimonialSection';
 import NewsletterSection from '../components/NewsletterSection';
+import Additional from '../components/Additional';
 
 const Home = () => {
     return (
@@ -16,7 +17,10 @@ const Home = () => {
             <WhyChooseUs></WhyChooseUs>
             <HowItWorks></HowItWorks>
             <TestimonialSection></TestimonialSection>
-            <NewsletterSection></NewsletterSection>
+            <Additional></Additional>
+            <div className='max-w-7xl mx-auto'>
+                   <NewsletterSection></NewsletterSection>
+            </div>
         </div>
     );
 };

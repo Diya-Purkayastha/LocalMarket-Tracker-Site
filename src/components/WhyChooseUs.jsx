@@ -25,7 +25,7 @@ import VeggiesFruitSection from "./VeggiesFruitSection";
 const WhyChooseUs = () => {
   return (
     <section
-      className="py-30 bg-cover bg-center bg-fixed relative mt-10 md:mt-24"
+      className="py-30 bg-cover bg-center bg-fixed relative mt-10 md:mt-28"
       style={{
         backgroundImage: `url('https://demo1.leotheme.com/bos_freshness_demo/themes/bos_freshness/assets/img/modules/appagebuilder/images/bn2.jpg')`, // section bg
       }}

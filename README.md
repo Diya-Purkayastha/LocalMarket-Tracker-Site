@@ -11,6 +11,13 @@ It connects **farmers, vendors, and buyers**, showing **fresh prices, seasonal t
 
 ---
 
+## 📸 Screenshot
+<img width="1903" height="807" alt="image" src="https://github.com/user-attachments/assets/c77d524a-d8b1-4cfd-841c-05331f9f8bdf" />
+<img width="1886" height="910" alt="image" src="https://github.com/user-attachments/assets/92b39c31-4a3f-42ec-86cb-8feaaa4a7777" />
+<img width="1878" height="895" alt="image" src="https://github.com/user-attachments/assets/6b71db61-df4c-4af0-a86f-b9dc8576b92e" />
+<img width="1870" height="859" alt="image" src="https://github.com/user-attachments/assets/4ddbf9d9-85c9-4e31-83f2-25934c0c3f49" />
+<img width="1905" height="907" alt="image" src="https://github.com/user-attachments/assets/8ee175ff-841c-45d0-b99b-148c4b830ee7" />
+
 ## 🎯 Purpose
 
 ✅ Help **buyers** compare prices from different markets.  
